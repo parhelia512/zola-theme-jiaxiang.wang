@@ -1,9 +1,9 @@
 name = "jiaxiang.wang"
-description = "A fast and beautiful theme for creators, used by https://blog.jiaxiang.wang, porting from Halo-theme-hao, originally designed by https://blog.zhheo.com/"
+description = "A fast and beautiful theme for creators, used by https://blog.jiaxiang.wang, porting from Halo-theme-hao."
 license = "AGPL"
 homepage = "https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang"
 min_version = "0.19.2"
-demo = "https://blog.jiaxiang.wang/"
+demo = "https://theme.jiaxiang.wang/"
 
 [author]
 name = "Jiaxiang Wang"

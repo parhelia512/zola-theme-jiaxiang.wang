@@ -17,7 +17,7 @@
 
 ## ℹ️ About
 
-[zola-theme-jiaxiang.wang](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang) 是一款适用于 [Zola](https://github.com/getzola/zola) 的博客主题。
+[zola-theme-jiaxiang.wang](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang) is a blog theme for [Zola](https://github.com/getzola/zola).
 
 > This theme was ported by [Jiaxiang Wang](https://blog.jiaxiang.wang) from the [Halo](https://github.com/halo-dev/halo) theme [Halo-Theme-Hao](https://github.com/chengzhongxue/halo-theme-hao), which was itself ported from [Hexo](https://hexo.io/zh-cn/index.html) by [Zhang Hong Heo](https://blog.zhheo.com/) as a modified and redesigned version of the [Hexo-Theme-Butterfly](https://github.com/chengzhongxue/halo-theme-hao) theme.
 
