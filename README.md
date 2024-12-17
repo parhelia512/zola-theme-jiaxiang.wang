@@ -8,7 +8,7 @@
 
 [主题预览](#-预览) | [快速上手](#-快速上手) | [加入讨论](#-讨论)
 
-[中文](./readme.md) | [English](./readme.en.md)
+[中文](./README.md) | [English](./README.en.md)
 
 </p>
 </div>

@@ -8,7 +8,7 @@
 
 [Preview](#-preview) | [Quick Start](#-quick-start) | [Discussion](#-discussion)
 
-[中文](./readme.md) | [English](./readme.en.md)
+[中文](./README.md) | [English](./README.en.md)
 
 </p>
 </div>
