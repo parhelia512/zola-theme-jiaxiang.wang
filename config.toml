@@ -221,6 +221,8 @@ icp = "ICP"
 default_cover = "/img/default-cover.avif"
 # 网站联系邮箱
 email = "mail@example.com"
+# 建站时间，用于底部显示年份
+start_year = "2024"
 
 [extra.site.author]
 # 作者头像

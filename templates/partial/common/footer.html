@@ -131,12 +131,10 @@
         <div class="footer-bar-links">
             <div class="footer-bar-left">
                 <div id="footer-bar-tips">
-                    <div style="display: flex;flex-direction: row;align-items: center;">
-                        {% if config.extra.site.site_start_time %}
-                            ©{{ config.extra.site.site_start_time | split(pat="-") | first }} - {{ now() | date(format="%Y") }}
-                        {% else %}
-                            ©{{ now() | date(format="%Y") }}
-                        {% endif %}
+                    <div>
+                        {% set start = config.extra.site.start_year | default(value=now() | date(format="%Y")) | int %}
+                        {% set current = now() | date(format="%Y") | int %}
+                        Copyright © <span class="inline-word" id="copyright-info">{% if start != current %}{{ start }} - {% endif %}{{ current }}</span>
                         By <a class="footer-bar-link" href="/"  target="_blank">{{ config.title }}</a>
                     </div>
                 </div>
@@ -144,7 +142,13 @@
                 rel="noopener external nofollow noreferrer">
                 本网站由 Zola 构建
             </a>
-
+                {# 动态调整 #}
+                <script defer>
+                    const startYear = {{ config.extra.site.start_year }};
+                    const currentYear = new Date().getFullYear();
+                    const copyrightInfo = `${startYear !== currentYear ? startYear + ' - ' : ''}${currentYear}`;
+                    document.getElementById('copyright-info').innerHTML = copyrightInfo;
+                </script>
             </div>
             <div class="footer-bar-right">
                 <a class="footer-bar-link" href="/subscribe" target="_blank">订阅</a>
