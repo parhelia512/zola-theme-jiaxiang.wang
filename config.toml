@@ -488,6 +488,31 @@ providerMirror = "https://cravatar.cn"
 
 # 页脚栏
 [extra.footer]
+# 底部启用
+enable = true
+# 页脚高度
+footer_banner_padding = 1
+# 订阅
+dingyue = true
+# 主题
+theme = true
+# 关于
+about = true
+# icp备案
+icp_icon = true
+# 公网安备案
+gongwangan = true
+# 隐私
+copyright = true
+# 云服务支持
+yunzhichi = false
+
+# 云服务商 upyun_cloud aliyun_cloud tencent_cloud huawei_cloud custom_cloud
+yunzhichi_list = ""
+# 自定义云支持地址
+yunzhichi_url = ""
+# 自定义云支持跳转地址
+yunzhichi_url_link = ""
 
 [extra.footer.footer_bar]
 # 是否显示
@@ -523,53 +548,6 @@ url = "https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang"
 enable = true
 # 友链数
 num = 3
-
-# 页脚内容
-[extra.footer.content]
-# 默认启用组
-[extra.footer.content.default_group]
-# 底部启用
-enable = true
-# 页脚高度
-footer_banner_padding = 1
-# 订阅
-dingyue = true
-# 主题
-theme = true
-# 关于
-about = true
-# icp备案
-icp_icon = true
-# 公网安备案
-gongwangan = true
-# 隐私
-copyright = true
-# 云服务支持
-yunzhichi = false
-
-# 云服务商 upyun_cloud aliyun_cloud tencent_cloud huawei_cloud custom_cloud
-yunzhichi_list = ""
-# 自定义云支持地址
-yunzhichi_url = ""
-# 自定义云支持跳转地址
-yunzhichi_url_link = ""
-
-# 中间样式
-[extra.footer.content.style_one]
-# 网站所有者
-owner_enable = false
-# 运行时间
-runtime_enable = true
-
-# 徽标配置项
-[[extra.footer.content.style_one.bdageitem]]
-# 链接
-link = "https://www.getzola.org/"
-# 徽标
-shields = ""
-# 徽标 title 描述
-message = "博客框架为 Zola"
-
 
 # 文章相关配置
 [extra.post]
@@ -1077,13 +1055,6 @@ progress_bar = true
 [extra.other.error_404]
 # 副标题
 subtitle = "请尝试站内搜索寻找文章"
-# 背景
-background = "/img/404.svg"
-
-# 500 页面
-[extra.other.error_500]
-# 副标题
-subtitle = "服务器内部出现错误，请查看日志"
 # 背景
 background = "/img/404.svg"
 
