@@ -208,7 +208,7 @@
                 locale: "{% if config.extra.comments.waline.locale %}{{ config.extra.comments.waline.locale }}{% else %}{% endif %}"
             },
             footer: {
-                default_enable: {{ config.extra.footer.content.default_group.enable }}
+                default_enable: {{ config.extra.footer.enable }}
             },
             about: {
                 {# rewardList: "{{ config.extra.about_reward.sponsors | json_encode | safe }}", #}
