@@ -192,21 +192,27 @@
             img: {
                 src: "{% if config.extra.other.lazyload.enable %}'data-lazy-src'{% else %}'src'{% endif %}"
             },
+            {%- if config.extra.comments.system == 'twikoo' -%}
             twikoo: {
                 js: "{% if config.extra.comments.twikoo.js %}{{ config.extra.comments.twikoo.js }}{% else %}/libs/twikoo/twikoo.all.min.js{% endif %}",
                 twikooUrl: "{{ config.extra.comments.twikoo.env_id | safe }}",
             },
+            {% endif %}
+            {%- if config.extra.comments.system == 'artalk' -%}
             artalk: {
                 js: "{% if config.extra.comments.artalk.artalk_js %}{{ config.extra.comments.artalk.artalk_js | safe }}{% else %}/libs/artalk/Artalk.js{% endif %}",
                 css: "{% if config.extra.comments.artalk.artalk_css %}{{ config.extra.comments.artalk.artalk_css | safe }}{% else %}/libs/artalk/Artalk.css{% endif %}",
                 artalkUrl: "{{ config.extra.comments.artalk.server | safe }}",
                 siteName: "{{ config.extra.comments.artalk.site_name }}"
             },
+            {%- endif -%}
+            {%- if config.extra.comments.system == 'waline' -%}
             waline: {
                 js: "{% if config.extra.comments.waline.waline_js %}{{ config.extra.comments.waline.waline_js }}{% else %}https://cdn.cbd.int/@waline/client@2.15.7/dist/waline.js{% endif %}",
                 serverURL: "{{ config.extra.comments.waline.server_url }}",
                 locale: "{% if config.extra.comments.waline.locale %}{{ config.extra.comments.waline.locale }}{% else %}{% endif %}"
             },
+            {%- endif -%}
             footer: {
                 default_enable: {{ config.extra.footer.enable }}
             },
