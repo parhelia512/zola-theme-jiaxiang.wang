@@ -1,4 +1,4 @@
 {# 插入图片短代码 usage: {{ image(img_name="xxxx", width=240, alt="xxxx") }} #}
 {% set document = page | default(value=section) -%} {# this ensures the shortcode works in both pages and sections -#}
-{% set resized = resize_image(format="auto", path=document.colocated_path ~ img_name, width=1000, op="fit_width") %}
+{% set resized = resize_image(format="webp", path=document.colocated_path ~ img_name, width=1000, op="fit_width") %}
 <img alt="{{ alt }}" class="nolazyload" src="{{ config.extra.other.lazyload.loading_img | safe }}" data-lazy-src="{{ resized.url | safe }}" />
