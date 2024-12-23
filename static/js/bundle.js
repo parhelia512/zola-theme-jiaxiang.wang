@@ -474,7 +474,7 @@ var toggleCardCategory = function () {
 // 懒加载
 var lazyloadImg = () => {
     window.lazyLoadInstance = new LazyLoad({
-        elements_selector: 'img',
+        elements_selector: 'img:not(.no-lazy)',
         threshold: 0,
         data_src: 'lazy-src',
         callback_error: (img) => {

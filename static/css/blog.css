@@ -1,5 +1,52 @@
 @charset "UTF-8";
 
+.progressive-picture {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  background: radial-gradient(circle, #c3c3c3 0%, #d9dee4 100%);
+  transition: filter 0.3s ease-out;
+  filter: blur(50px);
+  /* this is needed so Safari keeps sharp edges */
+  transform: scale(1);
+}
+
+.progressive-picture.loaded {
+  filter: none;
+  background: none;
+}
+
+.progressive-thumbnail {
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: opacity 0.3s ease-out;
+}
+
+.progressive-thumbnail.loaded {
+  opacity: 0;
+}
+
+.progressive-content {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: opacity 0.3s ease-out;
+}
+
+.progressive-content.loaded {
+  opacity: 1;
+}
+  
 img {
     width: 100%;
     height: 100%;
@@ -1157,14 +1204,16 @@ blockquote footer cite::before {
     height: 80px;
 }
 
-.article-sort-item-img img {
+.article-sort-item-img img,
+.article-sort-item-img picture {
     width: 100%;
     height: 100%;
     transition: all 0.6s ease 0s;
     object-fit: cover;
 }
 
-.article-sort-item-img img:hover {
+.article-sort-item-img img:hover,
+.article-sort-item-img picture:hover {
     transform: scale(1.1);
 }
 
@@ -1546,7 +1595,7 @@ blockquote footer cite::before {
     box-shadow: var(--card-hover-box-shadow);
 }
 
-#recent-posts > .recent-post-item:hover img.post_bg {
+#recent-posts > .recent-post-item:hover .post_bg {
     transform: scale(1.1);
 }
 
@@ -1562,14 +1611,14 @@ blockquote footer cite::before {
     -webkit-mask-image: -webkit-radial-gradient(center, rgb(255, 255, 255), rgb(0, 0, 0));
 }
 
-#recent-posts > .recent-post-item .post_cover img.post_bg {
+#recent-posts > .recent-post-item .post_cover .post_bg {
     width: 100%;
     height: 100%;
     transition: all 0.6s ease 0s;
     object-fit: cover;
 }
 
-#recent-posts > .recent-post-item .post_cover img.post_bg:hover {
+#recent-posts > .recent-post-item .post_cover .post_bg:hover {
     transform: scale(1.1);
 }
 
@@ -1963,14 +2012,16 @@ blockquote footer cite::before {
     height: 4.2em;
 }
 
-#aside-content .aside-list > .aside-list-item .thumbnail > img {
+#aside-content .aside-list > .aside-list-item .thumbnail > img,
+#aside-content .aside-list > .aside-list-item .thumbnail > picture  {
     width: 100%;
     height: 100%;
     transition: all 0.6s ease 0s;
     object-fit: cover;
 }
 
-#aside-content .aside-list > .aside-list-item .thumbnail > img:hover {
+#aside-content .aside-list > .aside-list-item .thumbnail > img:hover,
+#aside-content .aside-list > .aside-list-item .thumbnail > picture:hover {
     transform: scale(1.1);
 }
 
@@ -6926,7 +6977,8 @@ body[data-type=music] .page #nav #site-name span {
     }
 }
 
-#aside-content .aside-list > .aside-list-item:hover .thumbnail > img {
+#aside-content .aside-list > .aside-list-item:hover .thumbnail > img,
+#aside-content .aside-list > .aside-list-item:hover .thumbnail > picture {
     transform: scale(1);
 }
 
@@ -9165,17 +9217,17 @@ ins.adsbygoogle {
         height: 220px
     }
 
-    #recent-posts>.recent-post-item:hover .post_cover img.post_bg {
+    #recent-posts>.recent-post-item:hover .post_cover .post_bg {
         transform: scale(1.03);
         transition: .3s ease-in-out;
         filter: brightness(.85)
     }
 
-    #recent-posts > .recent-post-item.post-card-large:hover .post_cover img.post_bg {
+    #recent-posts > .recent-post-item.post-card-large:hover .post_cover .post_bg {
         transform: scale(1.03);
     }
 
-    #recent-posts > .recent-post-item .post_cover img.post_bg {
+    #recent-posts > .recent-post-item .post_cover .post_bg {
         min-width: 100%;
         -webkit-backface-visibility: hidden;
         -webkit-transform-style: preserve-3d;
@@ -9200,14 +9252,14 @@ ins.adsbygoogle {
     }
 }
 
-#recent-posts > .recent-post-item:hover .post_cover img.post_bg {
+#recent-posts > .recent-post-item:hover .post_cover .post_bg {
     transform: scale(1);
     transition: 0s ease-in-out;
     filter: brightness(1)
 }
 
 @media screen and (min-width: 1200px) {
-    #recent-posts > .recent-post-item:hover .post_cover img.post_bg {
+    #recent-posts > .recent-post-item:hover .post_cover .post_bg {
         transform: scale(1.03);
         transition: .3s ease-in-out;
         filter: brightness(.85)
@@ -9630,15 +9682,15 @@ span.recent-post-top-text {
         background: none !important;
     }
 
-    #recent-posts > .recent-post-item .post_cover img.post_bg {
+    #recent-posts > .recent-post-item .post_cover .post_bg {
         border-radius: 12px 12px 0 0 !important;
     }
 
-    #recent-posts > .recent-post-item .post_cover img.post_bg:hover {
+    #recent-posts > .recent-post-item .post_cover .post_bg:hover {
         transform: scale(1);
     }
 
-    #recent-posts > .recent-post-item:hover img.post_bg {
+    #recent-posts > .recent-post-item:hover .post_bg {
         transform: scale(1);
     }
 
@@ -11603,7 +11655,7 @@ blockquote p {
     content: ' ';
     display: block;
     position: absolute;
-    z-index: 0;
+    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
@@ -13684,7 +13736,8 @@ figure.gallery-group:hover .gallery-group-name::after {
     margin-bottom: 0.2rem;
 }
 
-.article-sort-item-img img:hover {
+.article-sort-item-img img:hover,
+.article-sort-item-img picture:hover {
     transform: scale(1);
 }
 
@@ -16699,7 +16752,8 @@ div#wjx-footer-bar .footer-bar-description {
     -webkit-backdrop-filter: blur(20px);
 }
 
-#card-newest-comments .aside-list-item .thumbnail img {
+#card-newest-comments .aside-list-item .thumbnail img,
+#card-newest-comments .aside-list-item .thumbnail picture {
     width: 20px;
     height: 20px;
     margin-right: 8px;
