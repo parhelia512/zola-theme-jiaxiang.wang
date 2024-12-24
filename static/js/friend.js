@@ -35,7 +35,7 @@ async function loadFriendLinks() {
                         </a>
                         <a class="info cf-friends-link" target="_blank" href="${link.url}" title="${link.display_name}" rel="external nofollow noopener">
                             <div class="site-card-avatar no-lightbox">
-                                <img class="flink-avatar cf-friends-avatar" alt="${link.display_name}" src="${link.logo}" loading="lazy">
+                                <img class="flink-avatar cf-friends-avatar" alt="${link.display_name}" src="${img}" loading="lazy">
                             </div>
                             <div class="site-card-text">
                                 <span class="title cf-friends-name">${link.display_name}</span>
