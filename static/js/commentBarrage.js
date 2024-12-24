@@ -5,22 +5,32 @@ if(GLOBAL_CONFIG.htmlType!='comments' && document.querySelector('#post-comment')
         maxBarrage: GLOBAL_CONFIG.source.comments.maxBarrage,
         //弹幕显示间隔时间ms
         barrageTime: GLOBAL_CONFIG.source.comments.barrageTime,
-        //twikoo部署地址腾讯云的为环境ID
-        twikooUrl: GLOBAL_CONFIG.source.twikoo.twikooUrl,
-        artalkUrl: GLOBAL_CONFIG.source.artalk.artalkUrl,
-        walineUrl: GLOBAL_CONFIG.source.waline.serverURL,
-        //token获取见上方
-        accessToken: GLOBAL_CONFIG.source.twikoo.accessToken,
+        serverUrl: "",
         mailMd5: GLOBAL_CONFIG.source.comments.mailMd5,
         pageUrl: window.location.pathname.replace(/\/page\/\d$/, ""),
         barrageTimer: [],
         barrageList: [],
-        siteName: GLOBAL_CONFIG.source.artalk.siteName,
         barrageIndex: 0,
         dom: document.querySelector('.comment-barrage'),
         use: GLOBAL_CONFIG.source.comments.use
     }
-
+    switch (commentBarrageConfig.use) {
+        case 'twikoo':
+            //twikoo部署地址腾讯云的为环境ID
+            commentBarrageConfig.serverUrl = GLOBAL_CONFIG.source.twikoo.twikooUrl;
+            //token获取见上方
+            commentBarrageConfig.accessToken= GLOBAL_CONFIG.source.twikoo.accessToken;
+            break;
+        case 'artalk':
+            commentBarrageConfig.serverUrl = GLOBAL_CONFIG.source.artalk.artalkUrl;
+            commentBarrageConfig.siteName = GLOBAL_CONFIG.source.artalk.siteName;
+            break;
+        case 'waline':
+            commentBarrageConfig.serverUrl = GLOBAL_CONFIG.source.waline.serverURL;
+            break;    
+        default:
+            break;
+    }
     var commentInterval = null;
     var hoverOnCommentBarrage = false;
 
@@ -35,7 +45,7 @@ if(GLOBAL_CONFIG.htmlType!='comments' && document.querySelector('#post-comment')
     function initCommentBarrage() {
         //console.log("开始创建热评")
 
-        if(commentBarrageConfig.use=='Twikoo'){
+        if(commentBarrageConfig.use=='twikoo'){
             var data = JSON.stringify({
                 "event": "COMMENT_GET",
                 "commentBarrageConfig.accessToken": commentBarrageConfig.accessToken,
@@ -49,12 +59,12 @@ if(GLOBAL_CONFIG.htmlType!='comments' && document.querySelector('#post-comment')
                     commentBarrageConfig.dom.innerHTML = '';
                 }
             });
-            xhr.open("POST", commentBarrageConfig.twikooUrl);
+            xhr.open("POST", commentBarrageConfig.serverUrl);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(data);
         }
 
-        if(commentBarrageConfig.use=='Artalk'){
+        if(commentBarrageConfig.use=='artalk'){
             var data ={
                 "site_name": commentBarrageConfig.siteName,
                 "page_key": commentBarrageConfig.pageUrl,
@@ -71,13 +81,13 @@ if(GLOBAL_CONFIG.htmlType!='comments' && document.querySelector('#post-comment')
             });
             const usp = new URLSearchParams(data)
             const query = usp.toString()
-            xhr.open("POST", commentBarrageConfig.artalkUrl+'api/get');
+            xhr.open("POST", commentBarrageConfig.serverUrl+'api/get');
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(query);
         }
 
-        if(commentBarrageConfig.use=='Waline'){
-            fetch( commentBarrageConfig.walineUrl+`/comment?path=${commentBarrageConfig.pageUrl}&pageSize=100&page=1&lang=zh-CN&sortBy=insertedAt_desc`)
+        if(commentBarrageConfig.use=='waline'){
+            fetch( commentBarrageConfig.serverUrl+`/comment?path=${commentBarrageConfig.pageUrl}&pageSize=100&page=1&lang=zh-CN&sortBy=insertedAt_desc`)
                 .then((e=>e.json())).then((({data: t})=>{
                     if(t.length>0){
                         commentBarrageConfig.barrageList = commentLinkFilter(t);
