@@ -7,7 +7,8 @@
 {% set resized = resize_image(format="webp", path=path | trim, width=1000, op="fit_width") %}
 {% set thumb = resize_image(format="webp", path=path | trim, width=16, height=9, op="fill", format="webp", quality=1) %}
 
-<picture class="{% if class != "" %}{{ class }} {% endif %}progressive-picture" data-fancybox="">
+<picture class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"
+    {# fancybox适配 #}{% if alt != "" %} alt="{{ alt }} "{% endif %}src="{{ resized.url | safe }}">
     {#- the small image that will be blurred -#}
     <img class="progressive-thumbnail no-lightbox" src="{{ thumb.url | safe }}">
     {#- a lazy responsive image with data-srcset -#}

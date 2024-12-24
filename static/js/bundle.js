@@ -578,7 +578,7 @@ var addFancybox = function (ele) {
 // 图片加载
 var jqLoadAndRun = () => {
     const $fancyboxEle = GLOBAL_CONFIG.lightbox === 'fancybox'
-        ? document.querySelectorAll('#article-container :not(a):not(.rss-plan-info-group):not(.no-lightbox) > img, #article-container > img,.bber-container-img > img')
+        ? document.querySelectorAll('#article-container img:not(.no-lightbox), #article-container picture')
         : []
     const fbLengthNoZero = $fancyboxEle.length > 0
     const $jgEle = document.querySelectorAll('#article-container .gallery')

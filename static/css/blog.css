@@ -63,7 +63,7 @@
     top: 0;
 }
 
-img {
+img, picture {
     width: 100%;
     height: 100%;
 }
@@ -3160,13 +3160,15 @@ ul {
     border-radius: 4px
 }
 
-#article-container img {
+#article-container img,
+#article-container picture {
     display: block;
     margin: 0px auto 0.8rem;
 }
 
 @media screen and (max-width: 768px) {
-    #article-container img {
+    #article-container img,
+    #article-container picture {
         max-width: 100%
     }
 }
@@ -10697,7 +10699,8 @@ a.extend.prev {
     max-width: 1400px;
 }
 
-.layout#content-inner p img {
+.layout#content-inner p img,
+.layout#content-inner p picture {
     margin: auto
 }
 
@@ -11372,7 +11375,8 @@ details[open]:not(.tk-admin-config-group):not(.card-friend-class-name) > summary
     -webkit-user-select: none
 }
 
-#article-container a.fancybox img {
+#article-container a.fancybox img,
+#article-container a.fancybox picture {
     cursor: zoom-in
 }
 
@@ -11616,13 +11620,15 @@ blockquote p {
 }
 
 /* 文章图片 */
-#article-container img {
+#article-container img,
+#article-container picture {
     border-radius: 12px;
     margin-bottom: 0.5rem;
     object-fit: cover;
 }
 
-#article-container img.error {
+#article-container img.error,
+#article-container picture.error {
     content: url(../img/404.svg)
 }
 
