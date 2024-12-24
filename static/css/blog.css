@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#post-comment::before {
+    content: '';
+    display: block;
+    height:      75px;
+    margin-top: -75px;
+    visibility: hidden;
+}
+
 .progressive-picture {
   position: relative;
   display: block;
