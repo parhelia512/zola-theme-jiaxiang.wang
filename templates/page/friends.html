@@ -31,6 +31,8 @@
                 {{ macro_content_links::content_links() }}
             {% endif %}
 
+            {{ page.content | safe }}
+
             {# 评论组件 #}
             {% include "partial/common/comment.html" %}
 

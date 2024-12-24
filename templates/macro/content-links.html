@@ -117,7 +117,5 @@
             {% endif %}
 
         {% endfor %}
-        {% set doc = page | default(value=section) %}
-        {{ doc.content | safe }}
     </div>
 {% endmacro %}
