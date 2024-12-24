@@ -106,9 +106,9 @@
                 </a>
                 {# 动态调整 #}
                 <script defer>
-                    const startYear = {{ config.extra.site.start_year }};
-                    const currentYear = new Date().getFullYear();
-                    const copyrightInfo = `${startYear !== currentYear ? startYear + ' - ' : ''}${currentYear}`;
+                    var startYear = {{ config.extra.site.start_year }};
+                    var currentYear = new Date().getFullYear();
+                    var copyrightInfo = `${startYear !== currentYear ? startYear + ' - ' : ''}${currentYear}`;
                     document.getElementById('copyright-info').innerHTML = copyrightInfo;
                 </script>
             </div>
