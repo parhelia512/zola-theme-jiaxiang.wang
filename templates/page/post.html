@@ -16,7 +16,7 @@
             "name": "{{ config.author }}",
             "url": "/about"
           },
-          "image": "{{ macro::thumbnail_s(url=macro::post_cover(post=page)) | trim | safe }}",
+          "image": "{{ macro::thumbnail_s(url=macro::post_cover(post=page, local_url=false)) | trim | safe }}",
           "datePublished": "{{ page.date | date(format="%+", timezone="Asia/Shanghai") }}",
           {% if page.updated %}
           "dateModified": "{{ page.updated | date(format="%+", timezone="Asia/Shanghai") }}",
@@ -32,7 +32,7 @@
 
     <header class="post-bg" id="page-header">
         {{ macro::nav(title = config.title) }}
-        {% set img = macro::thumbnail_s(url=macro::post_cover(post=post)) %}
+        {% set img = macro::thumbnail_s(url=macro::post_cover(post=post, local_url=false)) %}
         <div class="coverdiv loaded" id="coverdiv">
             <img alt="cover" class="nolazyload" id="post-cover"
                  src="{{ img | safe }}">
