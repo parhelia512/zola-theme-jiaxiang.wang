@@ -1,6 +1,6 @@
 {% macro author_content(background, smallTitle, bigTitle, detail, button_url, button_title) %}
-<div class="author-content author-content-item essayPage single"
-     style="background:url({{ background | safe }}) left 28% / cover no-repeat !important;">
+<div class="author-content author-content-item essayPage single">
+    {{ macro::img_progressive_loading(src=background, class="card-background-img") }}
     <div class="card-content">
         <div class="author-content-item-tips">{{ smallTitle }}</div>
         <span class="author-content-item-title">{{ bigTitle }}</span>
