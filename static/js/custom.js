@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								<div class="int-tip">${this.options.tip}</div>
 								<div class="int-cardTitle">${this.options.cardTitle}</div>
 							</div>
-							<img ${GLOBAL_CONFIG.source.img.src}="${this.options.img}" alt="introduction">
+							<img src="${this.options.img}" alt="introduction">
 
 						</div>
 				`;
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					
 						<div class="introduction-card-bottom">
 							<div class="left no-lightbox">
-								<img ${GLOBAL_CONFIG.source.img.src}="${this.options.logo}" alt="introduction">
+								<img src="${this.options.logo}" alt="introduction">
 								<div class="info">
 									<div class="title">${this.options.title}</div>
 									<div class="subTitle">${this.options.subTitle}</div>
@@ -440,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 										href="${str[2]}"
 										class="no-text-decoration"><i class="${str[4]}"></i> <b>${str[0]}</b>
 										<p class="p red">${str[1]}</p><img
-											${GLOBAL_CONFIG.source.img.src}="${str[3]}">
+											src="${str[3]}">
 									</a>
 								`;
                             }else{
@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
 										href="${str[2]}"
 										class="no-text-decoration"><i class="${str[4]}"></i> <b>${str[0]}</b>
 										<p class="p red">${str[1]}</p><img
-											${GLOBAL_CONFIG.source.img.src}="${str[3]}">
+											src="${str[3]}">
 									</a>
 								`;
                             }else{
@@ -474,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
 									<a class="button no-text-decoration" target="_blank" rel="noopener external nofollow noreferrer"
 										href="${str[1]}" title="${str[0]}">
 										<img
-											${GLOBAL_CONFIG.source.img.src}="${str[2]}"/>${str[0]}
+											src="${str[2]}"/>${str[0]}
 									</a>
 								`;
                             }
@@ -508,7 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         contents += `
 							<figure class="gallery-group no-lightbox group-two"">
 								<img class="gallery-group-img" 
-								${GLOBAL_CONFIG.source.img.src}="${str[3]}" 
+								src="${str[3]}" 
 								alt="Group Image Gallery" >
 								<figcaption>
 									<div class="gallery-group-name">${str[0]}</div>
@@ -591,12 +591,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             contents +=`
                                 <div class="site-card">
                                     <a class="img" target="_blank" href="${flink[1]}" title="${flink[0]}">
-                                        <img class="flink-avatar entered loaded" style="pointer-events: none;" alt="${flink[0]}" ${GLOBAL_CONFIG.source.img.src}="${flink[4] || flink[2]}" >
+                                        <img class="flink-avatar entered loaded" style="pointer-events: none;" alt="${flink[0]}" src="${flink[4] || flink[2]}" >
                                     </a>
 
                                     <a class="info cf-friends-link" target="_blank" href="${flink[1]}" title="${flink[0]}">
                                         <div class="site-card-avatar no-lightbox">
-                                            <img class="flink-avatar cf-friends-avatar" alt="${flink[0]}" ${GLOBAL_CONFIG.source.img.src}="${flink[2]}">
+                                            <img class="flink-avatar cf-friends-avatar" alt="${flink[0]}" src="${flink[2]}">
                                         </div>
                                         <div class="site-card-text">
                                             <span class="title cf-friends-name">${flink[0]}</span>
@@ -610,11 +610,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             contents +=`
                                 <div class="flink-list-item">
                                     <a class="cf-friends-link" rel="external nofollow" target="_blank" href="${flink[1]}" title="${flink[0]}">
-                                        <img class="flink-avatar cf-friends-avatar" alt="${flink[0]}" ${GLOBAL_CONFIG.source.img.src}="${flink[2]}">
+                                        <img class="flink-avatar cf-friends-avatar" alt="${flink[0]}" src="${flink[2]}">
                                         <div class="flink-item-info no-lightbox">
                                             <span class="flink-item-name cf-friends-name">${flink[0]}</span>
                                             <span class="flink-item-desc" title="${flink[3]}">${flink[3]}</span>
-                                            <img ${GLOBAL_CONFIG.source.img.src}="${flink[2]}">
+                                            <img src="${flink[2]}">
                                         </div>
                                     </a>
                                 </div>

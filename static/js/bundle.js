@@ -537,7 +537,7 @@ var addFancybox = function (ele) {
     const runFancybox = (ele) => {
         ele.each(function (i, o) {
             const $this = $(o)
-            const lazyloadSrc = $this.attr('data-lazy-src') || $this.attr('src')
+            const lazyloadSrc = $this.attr('src')
             const dataCaption = $this.attr('alt') || ''
             $this.wrap(`<a href="${lazyloadSrc}" data-fancybox="images" data-caption="${dataCaption}" class="fancybox" data-srcset="${lazyloadSrc}"></a>`)
 

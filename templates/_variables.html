@@ -189,9 +189,6 @@
                 keys: "{{ config.extra.post.ai_description.key }}",
                 Referers: "{{ config.extra.post.ai_description.referers | safe }}"
             },
-            img: {
-                src: "{% if config.extra.other.lazyload.enable %}'data-lazy-src'{% else %}'src'{% endif %}"
-            },
             {%- if config.extra.comments.system == 'twikoo' -%}
             twikoo: {
                 js: "{% if config.extra.comments.twikoo.js %}{{ config.extra.comments.twikoo.js }}{% else %}/libs/twikoo/twikoo.all.min.js{% endif %}",
