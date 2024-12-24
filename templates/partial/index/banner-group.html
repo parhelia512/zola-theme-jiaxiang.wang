@@ -12,7 +12,7 @@
                     {% endif %}
                             <div class="tags-group-icon" style="background:{{ tech.bg_color }}">
                                 {% if tech.logo %}
-                                <img src="{{ tech.logo | safe }}" title="{{ tech.name }}">
+                                <img src="{{ tech.logo | safe }}" title="{{ tech.name }}" loading="lazy">
                                 {% elif tech.icon %}
                                 <i class="{{ tech.icon }}"></i>
                                 {% elif tech.svg_symbol_id %}
@@ -44,7 +44,7 @@
                     {% if not config.extra.top.banner_left.category_groups[0].icon is starting_with("http") %}
                         <i class="{{ config.extra.top.banner_left.category_groups[0].icon }}"></i>
                     {% else %}
-                        <img src="{{ config.extra.top.banner_left.category_groups[0].icon }}" alt="icon" />
+                        <img src="{{ config.extra.top.banner_left.category_groups[0].icon }}" alt="icon" loading="lazy"/>
                     {% endif %}
                     <div class="banners-link-title">{{ config.extra.top.banner_left.category_groups[0].title }}</div>
                 </a>
@@ -52,7 +52,7 @@
                     {% if not config.extra.top.banner_left.category_groups[1].icon is starting_with("http") %}
                         <i class="{{ config.extra.top.banner_left.category_groups[1].icon }}"></i>
                     {% else %}
-                        <img src="{{ config.extra.top.banner_left.category_groups[1].icon }}" alt="icon" />
+                        <img src="{{ config.extra.top.banner_left.category_groups[1].icon }}" alt="icon" loading="lazy"/>
                     {% endif %}
                     <div class="banners-link-title">{{ config.extra.top.banner_left.category_groups[1].title }}</div>
                 </a>
@@ -69,7 +69,7 @@
                     {% if not config.extra.top.banner_left.category_groups[0].icon is starting_with("http") %}
                         <i class="{{ config.extra.top.banner_left.category_groups[0].icon }}"></i>
                     {% else %}
-                        <img src="{{ config.extra.top.banner_left.category_groups[0].icon }}" alt="icon" />
+                        <img src="{{ config.extra.top.banner_left.category_groups[0].icon }}" alt="icon" loading="lazy"/>
                     {% endif %}
                 </a>
             </div>
@@ -79,7 +79,7 @@
                     {% if not config.extra.top.banner_left.category_groups[1].icon is starting_with("http") %}
                         <i class="{{ config.extra.top.banner_left.category_groups[1].icon }}"></i>
                     {% else %}
-                        <img src="{{ config.extra.top.banner_left.category_groups[1].icon }}" alt="icon" />
+                        <img src="{{ config.extra.top.banner_left.category_groups[1].icon }}" alt="icon" loading="lazy"/>
                     {% endif %}
                 </a>
             </div>        

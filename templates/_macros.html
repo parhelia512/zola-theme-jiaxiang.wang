@@ -100,7 +100,7 @@
                                 {% if sub_menu.icon  %}
                                     <i class="{{ sub_menu.icon }}" style="font-size:.9em"></i>
                                 {% elif sub_menu.icon_img %}
-                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}">
+                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}" loading="lazy">
                                 {% endif %}
                                 <span class="back-menu-item-text">{{ sub_menu.name }}</span>
                             </a>
@@ -323,23 +323,6 @@
     {{- cover -}}
 {% endmacro %}
 
-
-{# 设置图片链接，支持自动给懒加载 url {{ macro::img_src(src=img_src) }} #}
-{% macro img_src(src) %}
-{{- macro::img_src_internal(src=src) | trim -}}
-{% endmacro %}
-
-{# 内部使用 去除空格 #}
-{% macro img_src_internal(src) %}
-{% if config.extra.other.lazyload.enable and config.extra.other.lazyload.loading_img %}
-src={{ config.extra.other.lazyload.loading_img | trim | safe }}
-data-lazy-src={{ src | trim | safe }}
-{% else %}
-src="{{ src | safe | trim }}"
-{% endif %}
-{% endmacro %}
-
-
 {# 渐进式加载图片 src 本地路径 web_url 为了临时解决手动加载avif的问题 #}
 {% macro img_progressive_loading(src, web_url="", alt="", id="", class="") %}
 {% set thumb_src = macro::get_webp_of_webp(src=src) %}
@@ -348,7 +331,7 @@ src="{{ src | safe | trim }}"
 {% endif %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture">
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=thumb_src, width=16, height=9, op="fill", format="webp", quality=1) | trim | safe }}">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=thumb_src, width=16, height=9, op="fill", format="webp", quality=1) | trim | safe }}" loading="lazy">
     {#- a lazy responsive image with data-srcset -#}
     <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=45em" />
     <source src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=18em" />

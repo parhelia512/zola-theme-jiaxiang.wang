@@ -186,7 +186,7 @@ if(GLOBAL_CONFIG.htmlType!='comments' && document.querySelector('#post-comment')
         ${badgeName}
         </a>
         <div class="barrageNick">${nick}</div>
-        <img class="barrageAvatar" src="${avatar}"/>
+        <img class="barrageAvatar" src="${avatar}" loading="lazy"/>
         <a class="comment-barrage-close" href="javascript:wjx.switchCommentBarrage()"><i class="icon-xmark"></i></a>
         </div>
         <a class="barrageContent" href="javascript:wjx.scrollTo('${id}');">${comment}</a>

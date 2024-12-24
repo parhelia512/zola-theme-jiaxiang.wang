@@ -290,7 +290,7 @@ function owoBig() {
                                             a.style.left = o + "px",
                                             a.style.top = n + "px",
                                             a.style.display = "flex",
-                                            a.innerHTML = `<img src="${e.target.querySelector("img").src}">`
+                                            a.innerHTML = `<img src="${e.target.querySelector("img").src}" loading="lazy">`
                                     }
                                     ), 300))
                             }
@@ -469,18 +469,6 @@ var toggleCardCategory = function () {
             })
         })
     }
-}
-
-// 懒加载
-var lazyloadImg = () => {
-    window.lazyLoadInstance = new LazyLoad({
-        elements_selector: 'img:not(.no-lazy)',
-        threshold: 0,
-        data_src: 'lazy-src',
-        callback_error: (img) => {
-            img.setAttribute("srcset", GLOBAL_CONFIG.lazyload.error);
-        }
-    })
 }
 
 // 右下角悬浮操作按钮
@@ -920,8 +908,6 @@ function initBlogLazy() {
     } else {
         toggleCardCategory()
     }
-
-    GLOBAL_CONFIG.lazyload.enable && lazyloadImg()
 
     document.getElementById('rightside').addEventListener('click', function (e) {
         const $target = e.target.id || e.target.parentNode.id

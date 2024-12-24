@@ -32,7 +32,7 @@
             {% set logo = macro::thumbnail(url=config.extra.site.logo, width=118, height=118) | trim | safe %}
             <img class="footer_mini_logo" style="border-radius: 500px;"
                  src="{{ logo }}"
-                 data-lazy-src="{{ logo }}" 
+                 loading="lazy"
                  title="返回顶部" onclick="btf.scrollToDest(0, 500)">
         {% endif %}
 
@@ -138,7 +138,7 @@
                     {% if not config.extra.site.gongan | starts_with(pat="http") %}
                         {{ config.extra.site.gongan }}
                     {% else %}
-                        <img src="{{ config.extra.site.gongan }}" alt="gongan"/>
+                        <img src="{{ config.extra.site.gongan }}" alt="gongan" loading="lazy"/>
                     {% endif %}
                 </a>
                 {% endif %}

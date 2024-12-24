@@ -31,7 +31,7 @@
                                 {% else %}
                                     {% set img = link.logo %}
                                 {% endif %}
-                                <img title="{{ link.display_name }}" {{ macro::img_src(src=img) }}>
+                                <img title="{{ link.display_name }}" loading="lazy" src="{{ img | trim | safe }}">
                             </a>
                         {% if not odd %}
                             </div>
@@ -73,15 +73,14 @@
                             <a class="img" target="_blank" href="{{ link.url }}" title="{{ link.display_name }}" rel="external nofollow noopener" >
                                 {% set img = link.siteshot | default(value=link.logo) %}
                                 <img class="flink-avatar" style="pointer-events: none;" alt="{{ link.display_name }}"
-                                    {{ macro::img_src(src=img) }}>                             
-
+                                    loading="lazy" src="{{ img | trim | safe }}">
                             </a>
 
                             <a class="info cf-friends-link" target="_blank" href="{{ link.url }}"
                                title="{{ link.display_name }}" rel="external nofollow noopener">
                                 <div class="site-card-avatar no-lightbox">
                                     <img class="flink-avatar cf-friends-avatar" alt="{{ link.display_name }}"
-                                        {{ macro::img_src(src=link.logo) }}>                             
+                                        loading="lazy" src="{{ link.logo | trim | safe }}">                             
                                 </div>
                                 <div class="site-card-text">
                                     <span class="title cf-friends-name">{{ link.display_name }}</span>
@@ -104,11 +103,11 @@
                             <a class="cf-friends-link friend-link" rel="external nofollow noopener" target="_blank" href="{{ link.url }}"
                                title="{{ link.display_name }}">
                                 <img class="flink-avatar cf-friends-avatar" alt="{{ link.display_name }}"
-                                    {{ macro::img_src(src=link.logo) }}>
+                                    loading="lazy" src="{{ link.logo | trim | safe }}">
                                 <div class="flink-item-info no-lightbox">
                                     <span class="flink-item-name cf-friends-name">{{ link.display_name }}</span>
                                     <span class="flink-item-desc" title="{{ link.description }}">{{ link.description }}</span>
-                                    <img {{ macro::img_src(src=link.logo) }}>
+                                    <img loading="lazy" src="{{ link.logo | trim | safe }}">
                                 </div>
                             </a>
                         </div>

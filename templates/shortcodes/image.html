@@ -3,7 +3,7 @@
 {% set path = document.colocated_path ~ img_name -%}
 {% set src = path -%}
 {% set alt = alt -%}
-{% set class = "nolazyload" -%}
+{% set class = "" -%}
 {% set resized = resize_image(format="webp", path=path | trim, width=1000, op="fit_width") %}
 {% set thumb = resize_image(format="webp", path=path | trim, width=16, height=9, op="fill", format="webp", quality=1) %}
 

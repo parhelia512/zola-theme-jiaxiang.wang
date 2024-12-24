@@ -24,18 +24,18 @@ async function loadFriendLinks() {
                 var img = link.local_logo || link.logo;
                 tagsGroupHtml += `
                     <a class="tags-group-icon" target="_blank" href="${link.url}" title="${link.display_name}">
-                        <img title="${link.display_name}" src="${img}">
+                        <img title="${link.display_name}" src="${img}" loading="lazy">
                     </a>
                 `;
                 articleGroupHtml += `
                     <div class="site-card">
                         ${link.label ? `<span style="background-color:${link.label_color}" class="site-card-tag">${link.label}</span>` : ''}
                         <a class="img" target="_blank" href="${link.url}" title="${link.display_name}" rel="external nofollow noopener">
-                            <img class="flink-avatar" style="pointer-events: none;" alt="${link.display_name}" src="${img}">
+                            <img class="flink-avatar" style="pointer-events: none;" alt="${link.display_name}" src="${img}" loading="lazy">
                         </a>
                         <a class="info cf-friends-link" target="_blank" href="${link.url}" title="${link.display_name}" rel="external nofollow noopener">
                             <div class="site-card-avatar no-lightbox">
-                                <img class="flink-avatar cf-friends-avatar" alt="${link.display_name}" src="${link.logo}">
+                                <img class="flink-avatar cf-friends-avatar" alt="${link.display_name}" src="${link.logo}" loading="lazy">
                             </div>
                             <div class="site-card-text">
                                 <span class="title cf-friends-name">${link.display_name}</span>
