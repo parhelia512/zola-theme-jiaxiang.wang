@@ -1635,10 +1635,6 @@ blockquote footer cite::before {
     object-fit: cover;
 }
 
-#recent-posts > .recent-post-item .post_cover .post_bg:hover {
-    transform: scale(1.1);
-}
-
 #recent-posts > .recent-post-item > .recent-post-info.no-cover {
     width: 100%;
 }
@@ -9236,7 +9232,7 @@ ins.adsbygoogle {
         height: 220px
     }
 
-    #recent-posts>.recent-post-item:hover .post_cover .post_bg {
+    #recent-posts>.recent-post-item:hover .post_cover .post_bg.loaded {
         transform: scale(1.03);
         transition: .3s ease-in-out;
         filter: brightness(.85)
@@ -9271,14 +9267,14 @@ ins.adsbygoogle {
     }
 }
 
-#recent-posts > .recent-post-item:hover .post_cover .post_bg {
+#recent-posts > .recent-post-item:hover .post_cover .post_bg.loaded {
     transform: scale(1);
     transition: 0s ease-in-out;
     filter: brightness(1)
 }
 
 @media screen and (min-width: 1200px) {
-    #recent-posts > .recent-post-item:hover .post_cover .post_bg {
+    #recent-posts > .recent-post-item:hover .post_cover .post_bg.loaded {
         transform: scale(1.03);
         transition: .3s ease-in-out;
         filter: brightness(.85)
