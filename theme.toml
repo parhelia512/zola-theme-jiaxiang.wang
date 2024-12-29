@@ -317,8 +317,9 @@ icp_icon = true
 gongwangan = true
 # 隐私
 copyright = true
-# 云服务支持
-yunzhichi = false
+# 反馈
+feedback = true
+feedback_url = "mailto:mail@example.com"
 
 # 云服务商 upyun_cloud aliyun_cloud tencent_cloud huawei_cloud custom_cloud
 yunzhichi_list = ""

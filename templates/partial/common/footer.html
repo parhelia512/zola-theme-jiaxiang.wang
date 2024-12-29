@@ -123,6 +123,10 @@
                 <a class="footer-bar-link" href="/about" >关于</a>
                 {% endif %}
 
+                {% if config.extra.footer.feedback %}
+                <a class="footer-bar-link" href="{{ config.extra.footer.feedback_url }}" target="_blank">反馈</a>
+                {% endif %}
+
                 {% if config.extra.site.icp and config.extra.footer.icp_icon %}
                 <a class="footer-bar-link" href="https://beian.miit.gov.cn/#/Integrated/index"
                    rel="noopener external nofollow noreferrer"
