@@ -29,9 +29,11 @@ for file in "$directory"/*.png; do
             # 转换为 WebP 格式
             cwebp -resize "$width" "$height" -q "$quality" "$file" -o "$directory"/"$filename".webp
             if [ $? -eq 0 ]; then
-                echo "转换成功: $filename.avif"
+                echo "转换成功: $filename.webp"
+                # rm -f "$file"
+                # echo "删除原始文件: $file"
             else
-                echo "转换失败: $filename.avif"
+                echo "转换失败: $filename.webp"
             fi
         else
             echo "WebP文件已存在: $filename.webp"
