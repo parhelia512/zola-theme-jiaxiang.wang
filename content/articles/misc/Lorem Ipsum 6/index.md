@@ -9,7 +9,7 @@ tags = ["blog", "hot", "project"]
 categories = ["misc"]
 
 [extra]
-global_cover  = "/articles/misc/lorem-ipsum/cover.avif"
+global_cover  = "/articles/misc/Lorem Ipsum/cover.avif"
 +++
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec diam id libero egestas hendrerit. Suspendisse suscipit, libero vitae suscipit suscipit, magna justo feugiat nibh, at fermentum justo ex sed ex. Fusce tincidunt non dolor mollis fringilla. Mauris dui justo, dapibus et dui eu, mollis viverra eros. Aenean molestie ipsum quis rutrum tempus. Cras ac ipsum fringilla dui elementum viverra id vitae libero. Phasellus sed neque a est rutrum vulputate nec id nunc.
