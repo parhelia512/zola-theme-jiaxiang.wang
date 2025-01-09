@@ -8,7 +8,7 @@
 {% set doc = page | default(value=section) %}
 
 {% block head %}
-    {% set title = macro::taxonomy_map(taxonomy=taxonomy.name) %}
+    {% set title = macro::taxonomy_name(taxonomy=taxonomy.name) %}
     {{ macro::head_meta(title = title, _permalink = current_path, excerpt = title, type = title) }}
     <script id="ld-json" type="application/ld+json"></script>
 {% endblock %}
@@ -27,19 +27,23 @@
                         <div class="category-bar-item select"
                             id="{{ term.name }}">
                             <a href="{{ term.permalink }}" target="_self"
-                                >{{ macro::taxonomy_name(taxonomy=taxonomy.name, term=term.name) }}</a>
+                                >{{ macro::taxonomy_map(taxonomy=taxonomy.name, term=term.name) }}</a>
                         </div>                        
                         <div class="category-bar-item" id="category-bar-home">
                             <a href="/">首页</a>
                         </div>
-                        {% set taxonomies = get_taxonomy(kind=taxonomy.name) %}
-                        {% for item in taxonomies.items %}
-                            {% if term.name != item.name %}
-                            <div class="category-bar-item"
-                                 id="{{ item.slug }}">
-                                <a href="{{ item.permalink }}" target="_self"
-                                   >{{ macro::taxonomy_name(taxonomy=taxonomy.name, term=item.name) }}</a>
-                            </div>
+                        {% set data = load_data(path="data.toml") %}
+                        {% set taxonomies = data.post[taxonomy.name] | sort(attribute="index") %}
+                        {% for item in taxonomies %}
+                            {% if term.name != item.id %}
+                                {% set term = get_taxonomy_term(kind=taxonomy.name, term=item.id, include_pages=false, required=false) %}
+                                {% if term %}
+                                <div class="category-bar-item" id="{{ item.id }}">
+                                    <a href="{{ term.permalink }}" target="_self">
+                                        {{ item.name }}
+                                    </a>
+                                </div>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </div>
