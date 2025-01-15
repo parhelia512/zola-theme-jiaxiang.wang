@@ -133,6 +133,7 @@
             prism_limit: {{ config.extra.code.height_limit | default(value=300) + 30 }},
             enable_height_limit: {{ config.extra.code.enable_height_limit }}
         },
+        {% if config.extra.nav.right.search %}
         algolia:{
             appId: "{{ config.extra.other.algolia.app_id }}",
             apiKey: "{{ config.extra.other.algolia.app_key }}",
@@ -146,6 +147,7 @@
                 hits_stats:"找到 ${hits} 条结果，用时 ${time} 毫秒"
             }
         },
+        {% endif %}
         source: {
             power: {
                 powerLink: "{{ config.extra.sidebar.power.powerLink | safe }}",
