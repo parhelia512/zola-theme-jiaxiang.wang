@@ -187,11 +187,10 @@ index_format = "elasticlunr_javascript"
 # ]
 # build_search_index = false
 
-[languages.zh]
+# [languages.zh]
 
-[languages.zh.translations]
-title = "我的中文站点"
-
+# [languages.zh.translations]
+# title = "我的中文站点"
 
 # You can put any kind of data here. The data
 # will be accessible in all templates
