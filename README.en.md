@@ -46,7 +46,10 @@
   - [x] Right-click Menu
   - [x] Pjax
   - [ ] i18n
-  - [ ] Post GPT
+  - [ ] Article Abstract
+    - [x] Local Article Description
+    - [ ] Post GPT by Tianli
+    - [ ] Custom LLM
 - [ ] Special Pages
   - [x] Personal Equipment
   - [x] Friend Links

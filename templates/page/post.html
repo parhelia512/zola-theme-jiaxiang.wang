@@ -184,31 +184,7 @@
     </header>
     <main class="layout {{ config.extra.sidebar.location }}" id="content-inner">
         <div id="post">
-            {% if post.extra.ai | default(value=config.extra.post.aiDescription.aiDescriptionEnable) %}
-                <div class="post-ai">
-                    <div class="ai-title"><i class="icon-bilibili"></i>
-                        <div class="ai-title-text">AI-摘要</div>
-                        {% if config.extra.post.aiDescription.switchBtn %}
-                            <div id="ai-Toggle">切换</div>
-                        {% endif %}
-                        <i class="icon-arrow-rotate-right"></i>
-                        {% if config.extra.post.aiDescription.mode == "local" %}
-                            <div class="ai-tag" id="ai-tag">{{ config.extra.post.aiDescription.gptName }} GPT</div>
-                        {% endif %}
-                        {% if config.extra.post.aiDescription.mode == "tianli" %}
-                            <div class="ai-tag" id="ai-tag">Tianli GPT</div>
-                        {% endif %}
-                    </div>
-                    <div class="ai-explanation" style="display: block;">AI初始化中...</div>
-                    <div class="ai-btn-box">
-                        <div class="ai-btn-item">介绍自己</div>
-                        <div class="ai-btn-item">生成本文简介</div>
-                        <div class="ai-btn-item">推荐相关文章</div>
-                        <div class="ai-btn-item">前往主页</div>
-                        <div class="ai-btn-item" id="go-tianli-blog">前往tianli博客</div>
-                    </div>
-                </div>
-            {% endif %}
+            {% include "partial/post/abstract.html" %}
             {% if config.extra.post.passage_tips.enable and post.extra.updated_tip %}
                 {% set now = now() | date(format="%s") | int %}
                 {% set publish_before = page.date | date(format="%s") | int %}
@@ -225,9 +201,6 @@
             <article class="post-content {% if config.extra.code.enable_line %}line-numbers{% endif %}" id="article-container">
                 {{ page.content | safe }}
             </article>
-            {% if post.extra.ai | default(value=config.extra.post.aiDescription.aiDescriptionEnable) %}
-                <script data-pjax src="/libs/gpt/post-ai.js"></script>
-            {% endif %}
             {% include "partial/post/copyright.html" %}
             {% set previous_post = page.lower %}
             {% set next_post = page.higher %}

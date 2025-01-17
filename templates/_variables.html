@@ -181,15 +181,16 @@
                 switch: {{ config.extra.tool.snackbar.switch }}
             },
             postAi: {
-                ai: "{% if html_type != 'post' or not config.extra.post.ai_description.ai_description_enable or (config.extra.post.ai_description.mode != 'local' and not config.extra.post.ai_description.switch_btn) %}{% else %}{% if config.extra.post.ai_description.enable %}本地模式需要自己填写文章摘要{% else %}{% if doc.summary is empty %}请填写文章摘要{% else %}{{ doc.summary }}{% endif %}{% endif %}{% endif %}",
-                randomNum: {{ config.extra.post.ai_description.random_num }},
-                basicWordCount: {{ config.extra.post.ai_description.basic_word_count }},
-                btnLink: "{{ config.extra.post.ai_description.btn_link | safe }}",
-                gptName: "{{ config.extra.post.ai_description.gpt_name }}",
-                modeName: "{{ config.extra.post.ai_description.mode }}",
-                switchBtn: {{ config.extra.post.ai_description.switch_btn }},
-                keys: "{{ config.extra.post.ai_description.key }}",
-                Referers: "{{ config.extra.post.ai_description.referers | safe }}"
+                {% if config.extra.post.abstract.mode != "local" %}
+                switchBtn: {{ config.extra.post.abstract.switch_btn }},
+                keys: "{{ config.extra.post.abstract.key }}",
+                btnLink: "{{ config.extra.post.abstract.btn_link | safe }}",
+                Referers: "{{ config.extra.post.abstract.referers | safe }}",
+                basicWordCount: {{ config.extra.post.abstract.basic_word_count }},
+                randomNum: {{ config.extra.post.abstract.random_num }},
+                {% endif %}
+                gptName: "{{ config.extra.post.abstract.gpt_name }}",
+                modeName: "{{ config.extra.post.abstract.mode }}"
             },
             {%- if config.extra.comments.system == 'twikoo' -%}
             twikoo: {

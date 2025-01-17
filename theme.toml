@@ -376,12 +376,12 @@ copyrightsStyle = "one"
 # 最后更新时间
 update_time = true
 
-# AI 摘要
-[extra.post.ai_description]
+# 文章摘要
+[extra.post.abstract]
 # 是否启用
-enable = false
+enable = true
 # 名称
-gpt_name = "GPT"
+gpt_name = "本地"
 # 模式 本地或天理 local tianli
 mode = "local"
 # 显示切换按钮

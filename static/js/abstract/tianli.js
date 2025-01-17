@@ -17,44 +17,6 @@
     let keys = GLOBAL_CONFIG.source.postAi.keys;
     let Referers = GLOBAL_CONFIG.source.postAi.Referers;
 
-    // let post = document.querySelector('#post')
-    // const interface = {
-    //     name: "AI-摘要",
-    //     aiToggle: "切换",
-    //     version: "Tianli GPT",
-    //     button: ["介绍自己", "生成本文简介", "推荐相关文章", "前往主页"],
-    // }
-    // // 插入html结构
-    // const post_ai_box = document.createElement('div');
-    // post_ai_box.className = 'post-ai';
-    // post.insertBefore(post_ai_box, post.firstChild);
-    //
-    // var PostAI = `
-    // <div class="ai-title">
-    // <i class="icon-bilibili"></i>
-    // <div class="ai-title-text">${interface.name}</div>`
-    // if (switchBtn) {
-    //     PostAI += `<div  id="ai-Toggle">${interface.aiToggle}</div> `;
-    // }
-    // PostAI += `<i class="icon-arrow-rotate-right"></i> `;
-    // if (modeName == 'local') {
-    //     PostAI += `<div class="ai-tag" id="ai-tag">${gptName} GPT</div>`;
-    // } else {
-    //     PostAI += `<div class="ai-tag" id="ai-tag">${interface.version}</div>     `;
-    // }
-    // PostAI += `
-    // </div>
-    // <div class="ai-explanation" style="display: block;">AI初始化中...</div>
-    // <div class="ai-btn-box">
-    //   <div class="ai-btn-item">${interface.button[0]}</div>
-    //   <div class="ai-btn-item">${interface.button[1]}</div>
-    //   <div class="ai-btn-item">${interface.button[2]}</div>
-    //   <div class="ai-btn-item">${interface.button[3]}</div>
-    //   <div class="ai-btn-item" id="go-tianli-blog">前往tianli博客</div>
-    // </div>`;
-    //
-    // post_ai_box.innerHTML = PostAI;
-
     // 当前随机到的ai摘要到index
     let lastAiRandomIndex = -1;
     let animationRunning = true; // 标志变量，控制动画函数的运行
@@ -64,9 +26,9 @@
     let refreshNum = 0
     // 记录上一次传递给aiAbstract的参数
     let prevParam;
-    const aiTitleRefreshIcon = document.querySelector(".ai-title .icon.icon-arrow-rotate-right")
-    const explanation = document.querySelector(".ai-explanation");
-    const post_ai = document.querySelector(".post-ai");
+    const aiTitleRefreshIcon = document.querySelector(".abstract-title .icon-arrow-rotate-right")
+    const explanation = document.querySelector("#abstract-content");
+    const post_ai = document.querySelector("#abstract-content");
     let ai_str = "";
     let ai_str_length = "";
     let delay_init = 600;
@@ -94,7 +56,7 @@
                 explanation.appendChild(div);
                 i++;
                 if (delay === 150) {
-                    document.querySelector(".ai-explanation .ai-cursor").style.opacity = "0";
+                    document.querySelector("#abstract-content .ai-cursor").style.opacity = "0";
                 }
                 if (i === ai_str_length - 1) {
                     observer.disconnect(); // 暂停监听
@@ -263,7 +225,7 @@
     function aiTitleRefreshIconClick() {
         aiTitleRefreshIcon.click()
     }
-    const aiBtnList = document.querySelectorAll(".ai-btn-item");
+    const aiBtnList = document.querySelectorAll(".abstract-btn-item");
     const aiFunctions = [Introduce, aiTitleRefreshIconClick, aiRecommend, aiGoHome];
     const filteredHeadings = Array.from(aiBtnList).filter(heading => heading.id !== "go-tianli-blog");
     filteredHeadings.forEach((item, index) => {
@@ -310,15 +272,15 @@
     function changeShowMode() {
         if (mode === "tianli") {
             mode = "local";
-            document.getElementById("ai-tag").innerHTML = gptName + " GPT";
+            document.getElementById("abstract-tag").innerHTML = gptName + " GPT";
             if ((document.getElementById("go-tianli-blog").style.display = "block")) {
-                document.querySelectorAll(".ai-btn-item").forEach(item => (item.style.display = "block"));
+                document.querySelectorAll(".abstract-btn-item").forEach(item => (item.style.display = "block"));
                 document.getElementById("go-tianli-blog").style.display = "none";
             }
             aiAbstract(basicWordCount);
         } else {
             mode = "tianli";
-            document.getElementById("ai-tag").innerHTML = "Tianli GPT";
+            document.getElementById("abstract-tag").innerHTML = "Tianli GPT";
 
             const truncateDescription = getTitleAndContent(basicWordCount);
             let value = Math.floor(Math.random() * randomNum) + basicWordCount;
@@ -344,9 +306,9 @@
     }
 
     //- 监听tag点击事件
-    document.getElementById("ai-tag").addEventListener("click", () => {
+    document.getElementById("abstract-tag").addEventListener("click", () => {
         if (mode === "tianli") {
-            document.querySelectorAll(".ai-btn-item").forEach(item => item.style.display = "none");
+            document.querySelectorAll(".abstract-btn-item").forEach(item => item.style.display = "none");
             document.getElementById("go-tianli-blog").style.display = "block";
             startAI("你好，我是Tianli开发的摘要生成助理TianliGPT，是一个基于GPT-4的生成式AI。我在这里只负责摘要的预生成和显示，你无法与我直接沟通，如果你也需要一个这样的AI摘要接口，可以在下方购买。（暂未开放购买，敬请期待）")
         } else {
@@ -385,13 +347,13 @@
     });
 
     if (switchBtn) {
-        document.getElementById("ai-Toggle").addEventListener("click", () => {
+        document.getElementById("abstract-toggle").addEventListener("click", () => {
             changeShowMode()
         });
     }
 
     function showAiBtn() {
-        document.querySelectorAll(".ai-btn-item").forEach(item => {
+        document.querySelectorAll(".abstract-btn-item").forEach(item => {
             if (item.id !== "go-tianli-blog") {
                 item.style.display = "block";
             }
