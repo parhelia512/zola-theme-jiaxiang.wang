@@ -9,7 +9,7 @@ tags = ["blog", "featured", "hot"]
 categories = ["misc"]
 
 [extra]
-global_cover  = "/articles/misc/Lorem Ipsum/cover.avif"
+global_cover  = "/articles/misc/Lorem Ipsum/cover.webp"
 wechat_url = "https://mp.weixin.qq.com/s/xxx"
 +++
 
