@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Zola Theme for jiaxiang.wang [WIP]</h1>
+<h1>Zola Theme for jiaxiang.wang</h1>
 
 <h4>为创造者而生的开源 Zola 主题</h4>
 
