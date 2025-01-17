@@ -8,12 +8,12 @@
 
 [Preview](#-preview) | [Quick Start](#-quick-start) | [Discussion](#-discussion)
 
-[中文](./README.md) | [English](./README.en.md)
+[中文](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/blob/main/README.md) | [English](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/blob/main/README.en.md)
 
 </p>
 </div>
 
-[![preview](<./content/articles/docs/01 Read Me/preview.webp>)](https://blog.jiaxiang.wang)
+[![preview](<https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/raw/refs/heads/main/content/articles/docs/01%20Read%20Me/preview.webp>)](https://blog.jiaxiang.wang)
 
 ## ℹ️ About
 
@@ -27,7 +27,7 @@
 
 |  Name  |          Url           |
 |:------:|:-----------------------|
-| Jiaxiang Wang | https://blog.jiaxiang.wang |
+| Jiaxiang Wang | [https://blog.jiaxiang.wang](https://blog.jiaxiang.wang) |
 
 ### 🔌 Features
 

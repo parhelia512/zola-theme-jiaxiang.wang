@@ -8,12 +8,12 @@
 
 [主题预览](#-预览) | [快速上手](#-快速上手) | [加入讨论](#-讨论)
 
-[中文](./README.md) | [English](./README.en.md)
+[中文](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/blob/main/README.md) | [English](https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/blob/main/README.en.md)
 
 </p>
 </div>
 
-[![preview](<./content/articles/docs/01 Read Me/preview.webp>)](https://blog.jiaxiang.wang)
+[![preview](<https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang/raw/refs/heads/main/content/articles/docs/01%20Read%20Me/preview.webp>)](https://blog.jiaxiang.wang)
 
 ## ℹ️ 简介
 
@@ -23,11 +23,11 @@
 
 ## 🔥 预览
 
-> 如果你的站点也使用了本主题，欢迎通过 PR 的形式在 readme.md 和 /static/data/friends.json 中添加站点信息
+> 如果你的站点也使用了本主题，欢迎通过 PR 的形式在 `readme.md` 和 `/static/data/friends.json` 中添加站点信息
 
 |  站点名称  |          站点地址           |
 |:------:|:-----------------------|
-| 王嘉祥 | https://blog.jiaxiang.wang |
+| 王嘉祥 Jiaxiang Wang | [https://blog.jiaxiang.wang](https://blog.jiaxiang.wang) |
 
 ### 🔌 功能
 
