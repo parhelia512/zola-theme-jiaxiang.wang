@@ -321,7 +321,7 @@
 
 {# 渐进式加载图片 src 本地路径 web_url 为了临时解决手动加载avif的问题 #}
 {% macro img_progressive_loading(src, web_url="", alt="", id="", class="") %}
-{% set thumb_src = macro::get_webp_of_webp(src=src) %}
+{% set thumb_src = macro::get_webp_of_avif(src=src) %}
 {% if web_url != "" %}
     {% set src = web_url %}
 {% endif %}
@@ -358,7 +358,7 @@
 
 
 {# 渐进式加载图片，因为现在还不支持转换 avif 图片，需要从 avif 转换成 webp 文件路径 #}
-{% macro get_webp_of_webp(src) %}
+{% macro get_webp_of_avif(src) %}
 {%- if src is ending_with(".avif") -%}
 {{- src | replace(from=".avif", to=".webp") -}}
 {%- else -%}
