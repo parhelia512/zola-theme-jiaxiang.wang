@@ -209,20 +209,20 @@
                     </div>
                 </div>
             {% endif %}
-            <article class="post-content {% if config.extra.code.enable_line %}line-numbers{% endif %}" id="article-container">
-                {% if config.extra.post.passage_tips.enable and post.extra.updated_tip %}
-                    {% set now = now() | date(format="%s") | int %}
-                    {% set publish_before = page.date | date(format="%s") | int %}
-                    {% set publish_date = page.date | date(format='%Y-%m-%d') %}
-                    {% set days = (now - publish_before) / 86400 %}
-                    {% if days > config.extra.post.passage_tips.day %}
-                        <div class="note simple warning">
-                            <p>
-                                本文最后更新于 {{ page.updated | default(value=page.date) | date(format='%Y-%m-%d') }}，{{ config.extra.post.passage_tips.content | safe }}
-                            </p>
-                        </div>
-                    {% endif %}
+            {% if config.extra.post.passage_tips.enable and post.extra.updated_tip %}
+                {% set now = now() | date(format="%s") | int %}
+                {% set publish_before = page.date | date(format="%s") | int %}
+                {% set publish_date = page.date | date(format='%Y-%m-%d') %}
+                {% set days = (now - publish_before) / 86400 %}
+                {% if days > config.extra.post.passage_tips.day %}
+                    <div class="note simple warning">
+                        <p>
+                            本文最后更新于 {{ page.updated | default(value=page.date) | date(format='%Y-%m-%d') }}，{{ config.extra.post.passage_tips.content | safe }}
+                        </p>
+                    </div>
                 {% endif %}
+            {% endif %}
+            <article class="post-content {% if config.extra.code.enable_line %}line-numbers{% endif %}" id="article-container">
                 {{ page.content | safe }}
             </article>
             {% if post.extra.ai | default(value=config.extra.post.aiDescription.aiDescriptionEnable) %}
