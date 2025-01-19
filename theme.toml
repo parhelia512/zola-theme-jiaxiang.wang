@@ -415,13 +415,11 @@ key = "xxxx"
 referers = "https://xx.xx/"
 
 # Passage Tips Settings
-[extra.post.passage_tips]
+[extra.post.passage_tip]
 # 是否启用
 enable = true
-# 温馨提示文案 支持html
-content = "文章内容可能已经过时。"
 # 更新时间大于天数显示
-day = 7
+day = 60
 
 # 运营模式与责任
 [extra.post.post_edit]

@@ -74,6 +74,10 @@
         postTitle: "{{ title }}",
         isPost: {{ html_type == 'post' }},
         isHome: {{ html_type == 'index' }},
+        passageTip: {
+            enable: {{ config.extra.post.passage_tip.enable }},
+            day: {{ config.extra.post.passage_tip.day }},
+        },
         copyright: {
             enable: {{ config.extra.post.copyrights.copy_info }},
             limitCount: 10,

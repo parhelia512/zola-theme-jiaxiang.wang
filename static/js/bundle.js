@@ -26,6 +26,46 @@ async function fetchRSSAndGetLink(url) {
     }
 }
 
+function getPeriod(date) {
+    var now = Date.now() / 1000;
+    var publish_before = new Date(date).getTime() / 1000;
+    var days = Math.floor((now - publish_before) / 86400);
+    return days;
+}
+
+function setPostDateList() {
+    const dateTag = document.getElementsByClassName("post-meta-date-publish");
+    for (var i = 0; i < dateTag.length; i++) {
+        var date = dateTag[i].getAttribute('datetime');
+        var days = getPeriod(date);
+        var publish_date = date;
+        var date_str = "";
+        if (days > 30) {
+            date_str = publish_date;
+        } else if (days > 0) {
+            date_str = days + "天前";
+        } else {
+            date_str = "今天";
+        }
+        dateTag[i].innerHTML = date_str;
+        dateTag[i].title = date + "创建";
+    }
+}
+
+function setPostDate() {
+    if (GLOBAL_CONFIG.passageTip.enable) {
+        const messageBox = document.getElementById("passage-tip");
+        if (messageBox.getAttribute('data-tip-enable')) {
+            const date = messageBox.getAttribute('data-update-date');
+            const days = getPeriod(date);
+            if (days > GLOBAL_CONFIG.passageTip.day) {
+                messageBox.innerHTML = `<p>本文最后更新于 ${date}，文章内容可能已经过时。</p>`;
+                messageBox.classList.add("fade-in");
+            }
+        }
+    }
+}
+
 async function toRandomPost() {
     // 跳转全站的文章，可以从 sitemap 中获取所有文章
     const link = await fetchRSSAndGetLink('/rss.xml');
@@ -940,9 +980,11 @@ function initBlogLazy() {
     if (GLOBAL_CONFIG.isPost) {
         tocFn();
         // 二维码
-        wjx.qrcodeCreate()
+        setPostDate()
+        wjx.qrcodeCreate()        
     } else {
         toggleCardCategory()
+        setPostDateList()
     }
 
     document.getElementById('rightside').addEventListener('click', function (e) {

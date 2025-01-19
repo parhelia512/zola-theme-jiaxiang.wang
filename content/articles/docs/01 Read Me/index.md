@@ -9,7 +9,7 @@ tags = ["blog", "docs", "featured", "hot"]
 categories = ["theme"]
 
 [extra]
-updated_tip = true
+update_tip_enable = true
 cover = "cover.avif"
 +++
 

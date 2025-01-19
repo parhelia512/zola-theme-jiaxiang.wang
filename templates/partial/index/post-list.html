@@ -59,23 +59,12 @@
                         {% endfor %}
                     </span>
                 {% endif %}
-                
-                {% set now = now() | date(format="%s") | int %}
-                {% set publish_before = post.date | date(format="%s") | int %}
                 {% set publish_date = post.date | date(format='%Y-%m-%d') %}
-                {% set days = (now - publish_before) / 86400 | round %}
                 <span class="post-meta-date">
                     <i class="far fa-calendar-alt"></i>
-                    <time style="display: inline;"
-                          datetime="{{ post.date }}"
+                    <time style="display: inline;" class="post-meta-date-publish"
+                          datetime="{{ publish_date }}"
                           title="{{ publish_date }}创建">
-                        {% if days > 30 %}
-                            {{ publish_date }}
-                        {% elif days > 0 %}
-                            {{ days | round }}天前
-                        {% else %}
-                            今天
-                        {% endif %}
                     </time>
                 </span>
             </div>

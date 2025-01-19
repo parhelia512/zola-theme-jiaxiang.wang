@@ -18647,3 +18647,12 @@ div#equipment {
 #aside-content #card-toc .toc-content .toc-link:hover {
     background: var(--wjx-main-op-light)
 }
+
+#passage-tip {
+    transition: all 0.5s ease-in;
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1 !important;
+}
