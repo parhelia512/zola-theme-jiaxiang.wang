@@ -1,4 +1,4 @@
-(function () {
+function runPostAbstract() {
 
     // 获取挂载元素，即文章内容所在的容器元素
     let targetElement = document.querySelector('#post #article-container');
@@ -8,7 +8,6 @@
     };
 
     let abstract =  document.getElementById('abstract-content').innerText;
-    let tip = GLOBAL_CONFIG.source.postAi.gptName;
 
     // 当前随机到的ai摘要到index
     let lastAiRandomIndex = -1;
@@ -192,4 +191,4 @@
     });
 
     genAbstract();
-})()
+}

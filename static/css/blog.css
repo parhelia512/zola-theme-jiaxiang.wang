@@ -18649,6 +18649,7 @@ div#equipment {
 }
 
 #passage-tip {
+    display: none;
     transition: all 0.5s ease-in;
     opacity: 0;
 }

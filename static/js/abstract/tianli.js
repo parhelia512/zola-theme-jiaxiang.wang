@@ -1,4 +1,4 @@
-(function () {
+function runPostAbstract() {
 
     // 获取挂载元素，即文章内容所在的容器元素
     let targetElement = document.querySelector('#post #article-container');
@@ -402,4 +402,4 @@
 
     aiAbstract();
     showAiBtn();
-})()
+}

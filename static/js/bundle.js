@@ -60,7 +60,10 @@ function setPostDate() {
             const days = getPeriod(date);
             if (days > GLOBAL_CONFIG.passageTip.day) {
                 messageBox.innerHTML = `<p>本文最后更新于 ${date}，文章内容可能已经过时。</p>`;
-                messageBox.classList.add("fade-in");
+                messageBox.style.display = "block";
+                setTimeout(function() {
+                    messageBox.classList.add("fade-in");
+                }, 10);
             }
         }
     }
@@ -980,8 +983,9 @@ function initBlogLazy() {
     if (GLOBAL_CONFIG.isPost) {
         tocFn();
         // 二维码
+        runPostAbstract()
         setPostDate()
-        wjx.qrcodeCreate()        
+        wjx.qrcodeCreate()
     } else {
         toggleCardCategory()
         setPostDateList()
