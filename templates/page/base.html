@@ -138,22 +138,29 @@
 <script defer src='/js/commentBarrage.js'></script>
 {% endif %}
 
-{% if config.extra.nav.right.search %}
-{% include "partial/nav/search-dialog.html" %}
-<link rel="preload" as="style" href="/libs/algolia/algoliasearchNetlify.css" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="/libs/algolia/algoliasearchNetlify.css"></noscript>
-<script defer type="text/javascript" src="/libs/algolia/algoliasearchNetlify.js"></script>
-<script defer type="text/javascript" src="/libs/algolia/instantsearch.production.min.js"></script>
-<script defer type="text/javascript" src="/libs/algolia/algoliasearch-lite.umd.js"></script>
-
-<link rel="preload" as="style" href="/css/algolia.css" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="/css/algolia.css"></noscript>
-<script defer src='/js/search/algolia.js'></script>
-{% endif %}
-
 {# 延迟执行的不重要脚本 #}
 <script data-pjax defer src='/js/bundle.js'></script>
 <script defer src="/js/tw_cn.js"></script>
+
+{% if config.extra.nav.right.search %}
+    {% include "partial/nav/search-dialog.html" %}
+    <script>
+        var searchLibLoaded = false
+        const searchFiles = [
+        {% if config.extra.nav.right.search_engine == 'algolia' %}
+            { type: 'css', path: '/libs/algolia/algoliasearchNetlify.css' },
+            { type: 'js', path: '/libs/algolia/algoliasearchNetlify.js' },
+            { type: 'js', path: '/libs/algolia/algoliasearch-lite.umd.js' },
+        {% elif config.extra.nav.right.search_engine == 'meilisearch' %}
+            { type: 'js', path: '/libs/meilisearch/instant-meilisearch.umd.min.js' },
+        {% endif %}
+            { type: 'js', path: '/libs/instantsearch/instantsearch-production.min-4.77.0.js' }
+        ];
+    </script>
+    <link rel="preload" as="style" href="/css/algolia.css" onload="this.onload=null;this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" href="/css/algolia.css"></noscript>
+    <script defer src='/js/search/algolia.js'></script>
+{% endif %}
 
 {# https://instant.page/ 网站预加载， 放在 </body> 之前 #}
 <script defer src="/libs/instantpage/instantpage.min.js" type="module"></script>
