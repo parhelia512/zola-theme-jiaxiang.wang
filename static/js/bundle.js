@@ -1,7 +1,7 @@
 // 博客全局js文件
 
 // 定义区
-
+(function() {
 // 随机跳转
 async function fetchRSSAndGetLink(url) {
     try {
@@ -429,7 +429,7 @@ function initObserver() {
 }
 
 //从一个给定的数组arr中,随机返回num个不重复项
-function getArrayItems(arr, num) {
+window.getArrayItems = function(arr, num) {
     //新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
     var temp_array = new Array();
     for (var index in arr) {
@@ -790,7 +790,7 @@ $("textarea").focusout(function () {
 
 // 早上好问好
 // 获取时间
-var getTimeState = () => {
+window.getTimeState = function() {
     if (GLOBAL_CONFIG.profileStyle == 'default') {
         // 获取当前时间
         var timeNow = new Date();
@@ -968,9 +968,6 @@ if (typeof isTagsRandomColor !== "undefined" && isTagsRandomColor) {
     generateTagsColor();
 }
 
-//document.addEventListener('DOMContentLoaded', function () {
-//});
-
 //页脚友链
 GLOBAL_CONFIG.isFriendLinksInFooter && wjx.addFriendLinksInFooter()
 
@@ -979,7 +976,7 @@ if (GLOBAL_CONFIG.isMusic) {
     wjx.changeMusicBg(false);
 }
 
-function initBlogLazy() {
+window.initBlogLazy = runOnce('initBlogLazy')(() => {
     if (GLOBAL_CONFIG.isPost) {
         tocFn();
         // 二维码
@@ -1024,8 +1021,10 @@ function initBlogLazy() {
     jqLoadAndRun()
 
     clickFnOfSubMenu()
-}
+})
 
 document.addEventListener('DOMContentLoaded', function () {
     initBlogLazy()
 });
+
+})();

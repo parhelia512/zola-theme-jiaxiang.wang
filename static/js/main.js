@@ -1,7 +1,26 @@
 // 首页关键js，将被内联到html
-
+(function() {
 // 定义区
 
+// Create a registry to track initialization states
+window.initializationRegistry = new Set();
+// Track if this is a full page load
+window.isFullLoad = true;
+// Higher-order function to create run-once functions
+window.runOnce = function(key, options = {}) {
+  return function(fn) {
+    return function() {
+      // Check if already initialized
+      if (initializationRegistry.has(key)) return;      
+      // Mark as initialized
+      initializationRegistry.add(key);
+      // Check if this should run in current context
+      if (options.onlyFullLoad && !options.isFullLoad) return;
+      // Execute the initialization function
+      fn();
+    };
+  };
+}
 //老旧浏览器检测
 function browserTC() {
     btf.snackbarShow("");
@@ -13,7 +32,7 @@ function browserTC() {
     });
 }
 
-function browserVersion() {
+window.browserVersion = function() {
     var userAgent = navigator.userAgent;
     var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
     var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
@@ -173,7 +192,7 @@ function getSiblingNodesWithClass(element, className) {
 }
 
 // 渐进加载图片
-function progressiveLoad(element) {
+window.progressiveLoad = function(element) {
     if (!element) return;
     // 隐藏缩略图
     var sibing = getSiblingNodesWithClass(element, 'progressive-thumbnail')
@@ -213,7 +232,7 @@ document.addEventListener('scroll', btf.throttle(function () {
 }, 200))
 
 // 初始化博客
-function initBlog() {
+const initBlog = runOnce('initBlog')(() => {
     // 图片主色
     wjx.addNavBackgroundInit(),
         wjx.darkModeStatus(),
@@ -234,7 +253,7 @@ function initBlog() {
         GLOBAL_CONFIG.loadingBox && wjx.hideLoading(),
         bindTodayCardHoverEvent()
     //halo.getTopSponsors()
-}
+})
 
 $(document).ready((function () {
     initBlog()
@@ -243,7 +262,7 @@ $(document).ready((function () {
 document.addEventListener("pjax:complete", (function () {
     initBlog();
     // 首次加载使用浏览器事件，之后pjax加载在此触发
-    typeof initBlogLazy === 'function' && initBlogLazy();
+    typeof window.initBlogLazy === 'function' && window.initBlogLazy();
     // 解决 katex pjax问题
     if ((GLOBAL_CONFIG.htmlType == 'post' || GLOBAL_CONFIG.htmlType == 'page') && typeof window.renderKaTex != 'undefined') {
         window.renderKaTex();
@@ -358,3 +377,5 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(adjustMenu(true), 100)
     })
 })
+
+})();

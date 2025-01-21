@@ -216,6 +216,7 @@
       }
       
       typeof typed === 'object' && typed.destroy();
+      typeof window.initializationRegistry === 'object' && window.initializationRegistry.clear();
       
       //reset readmode
       const $bodyClassList = document.body.classList
