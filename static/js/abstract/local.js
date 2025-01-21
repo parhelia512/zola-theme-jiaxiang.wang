@@ -152,16 +152,16 @@ function runPostAbstract() {
         return `推荐文章:<br /><div class="ai-recommend">${list}</div>`;
     }
 
-    function into() {
+    function intro() {
         startAI("我是文章摘要助手，是一个基于文章元数据的摘要生成器，在不久的将来我会进化为基于大模型的版本哟~ 点击下方的按钮，让我为你生成本文简介、推荐相关文章吧~")
     }
 
     // 监听tip点击事件
     document.getElementById("abstract-tag").addEventListener("click", () => {
-        into();
+        intro();
     });
     document.getElementById("abstract-intro").addEventListener("click", () => {
-        into();
+        intro();
     });
     document.getElementById("abstract-generate").addEventListener("click", () => {
         genAbstract();
