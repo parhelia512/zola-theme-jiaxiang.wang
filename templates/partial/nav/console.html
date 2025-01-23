@@ -41,7 +41,7 @@
                 <ul>
                     {% for month, posts_monthly in posts | group_by(attribute="month") %}
                         <li class="card-archive-list-item">
-                            <a class="card-archive-list-link" href="/archives/{{ year }}/{{ month }}">
+                            <a class="card-archive-list-link" href="/archives">
                                 <span class="card-archive-list-date">
                                     {{ year }} {{ month }}月
                                 </span>
