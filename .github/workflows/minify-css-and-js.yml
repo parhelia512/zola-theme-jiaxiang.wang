@@ -46,7 +46,7 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
-      run: npm install terser clean-css --save-dev
+      run: npm install terser clean-css-cli -g
 
     # 使用git diff $PREV_SHA $CURRENT_SHA来获取两个提交之间的所有变更
     - name: Get changed files
@@ -64,11 +64,11 @@ jobs:
           if [[ $file == *.js ]]; then
             output_file="$PREFIX/${file#static/}"
             [ ! -d $(dirname $output_file) ] && mkdir -p $(dirname $output_file)
-            npx terser $file -o $output_file --compress --mangle
+            terser $file -o $output_file --compress --mangle
           elif [[ $file == *.css ]]; then
             output_file="$PREFIX/${file#static/}"
             [ ! -d $(dirname $output_file) ] && mkdir -p $(dirname $output_file)
-            npx cleancss -o $output_file $file
+            cleancss -o $output_file $file
           fi
         done
 
