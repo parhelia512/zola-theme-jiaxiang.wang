@@ -124,7 +124,7 @@
 
 <!-- 右键菜单 -->
 {% if config.extra.tool.right_menu.enable %}
-    <script defer src='/js/rightmenu.js'></script>
+    <script defer src='{{ macro::get_production_path(path="/js/rightmenu.js") }}'></script>
 {% endif %}
 
 <!-- 评论弹幕 -->
@@ -133,17 +133,17 @@
     (config.extra.comments.artalk.server  and config.extra.comments.artalk.site_name ) or
     (config.extra.comments.system == 'waline' and config.extra.comments.waline.server_url )
 ) and config.extra.comments.barrage.enable and config.extra.comments.enable %}
-<link rel="preload" as="style" href="/css/commentBarrage.css" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="/css/commentBarrage.css"></noscript>
-<script defer src='/js/commentBarrage.js'></script>
+<link rel="preload" as="style" href="{{ macro::get_production_path(path="/css/commentBarrage.css") }}" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="{{ macro::get_production_path(path="/css/commentBarrage.css") }}"></noscript>
+<script defer src='{{ macro::get_production_path(path="/js/commentBarrage.js") }}'></script>
 {% endif %}
 
 {# 文章摘要 #}
-<script data-pjax defer src="/js/abstract/{{ config.extra.post.abstract.mode }}.js"></script>
+<script data-pjax defer src="{{ macro::get_production_path(path="/js/abstract/" ~ config.extra.post.abstract.mode ~ ".js") }}"></script>
 
 {# 延迟执行的不重要脚本 #}
-<script data-pjax defer src='/js/bundle.js'></script>
-<script defer src="/js/tw_cn.js"></script>
+<script data-pjax defer src='{{ macro::get_production_path(path="/js/bundle.js") }}'></script>
+<script defer src="{{ macro::get_production_path(path="/js/tw_cn.js") }}"></script>
 
 {% if config.extra.nav.right.search %}
     {% include "partial/nav/search-dialog.html" %}
@@ -160,9 +160,9 @@
             { type: 'js', path: '/libs/instantsearch/instantsearch-production.min-4.77.0.js' }
         ];
     </script>
-    <link rel="preload" as="style" href="/css/algolia.css" onload="this.onload=null;this.rel='stylesheet'"/>
-    <noscript><link rel="stylesheet" href="/css/algolia.css"></noscript>
-    <script defer src='/js/search.js'></script>
+    <link rel="preload" as="style" href="{{ macro::get_production_path(path="/css/algolia.css") }}" onload="this.onload=null;this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" href="{{ macro::get_production_path(path="/css/algolia.css") }}"></noscript>
+    <script defer src='{{ macro::get_production_path(path="/js/search.js") }}'></script>
 {% endif %}
 
 {# https://instant.page/ 网站预加载， 放在 </body> 之前 #}

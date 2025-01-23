@@ -1,6 +1,6 @@
 {% if config.extra.comments.system == 'artalk' and config.extra.comments.artalk.server  %}
     <div class="js-pjax">
-        <script src="/js/comment/artalk.js"></script>
+        <script src="{{ macro::get_production_path(path="/js/comment/artalk.js") }}"></script>
         <input type="hidden" name="page-type" id="page-type" value="album">
     </div>
     <script>

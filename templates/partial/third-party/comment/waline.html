@@ -1,6 +1,6 @@
 {% if config.extra.comments.system == 'waline' and config.extra.comments.waline.server_url  %}
     <div class="js-pjax">
-        <script src="/js/comment/waline.js"></script>
+        <script src="{{ macro::get_production_path(path="/js/comment/waline.js") }}"></script>
     </div>
     <script>
         window.addEventListener('load', () => {

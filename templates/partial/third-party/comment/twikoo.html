@@ -2,7 +2,7 @@
     <div class="js-pjax">
         {#  <script src="{{ config.extra.comments.twikoo.js_url | default(value='/libs/twikoo/twikoo.all.min.js') | safe }}"></script> #}
        {#   <script src="/js/comment/twikoo.js"></script>  #}      
-       <script defer src="/js/comment/twikoo.js"></script>   
+       <script defer src="{{ macro::get_production_path(path="/js/comment/twikoo.js") }}"></script>   
     </div>
     <script defer>
         window.addEventListener('load', () => {
