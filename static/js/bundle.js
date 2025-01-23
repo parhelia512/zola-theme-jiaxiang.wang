@@ -69,7 +69,7 @@ function setPostDate() {
     }
 }
 
-async function toRandomPost() {
+window.toRandomPost = async function () {
     // 跳转全站的文章，可以从 sitemap 中获取所有文章
     const link = await fetchRSSAndGetLink('/rss.xml');
 
