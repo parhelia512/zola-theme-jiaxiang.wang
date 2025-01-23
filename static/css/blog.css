@@ -5562,7 +5562,7 @@ html {
         z-index: 1;
         content: "\e69a";
         transition: .1s;
-        font-family: !important;
+        font-family: icon !important;
         align-items: center;
         justify-content: center;
         font-size: 22px;
@@ -6918,11 +6918,9 @@ body[data-type=music] .page #nav #site-name span {
 /* 用 :has() 伪类判断card-widget是否存在，进行属性覆写 */
 /* 若存在，表明需要和card-widget保持距离 */
 @media screen and (min-width: 1300px) {
-    #aside-content:has(+.card-widget) {
-    #aside-content .sticky_layout {
+    #aside-content:has(+ .card-widget) .sticky_layout {
         margin-top: 1rem;
     }
-}
 }
 
 #aside-content .sticky_layout {
@@ -11560,12 +11558,12 @@ blockquote p {
 
 
 /* 文章内标题 */
-#article-container .headerlink::before {
+#friend-container .headerlink::before {
     content: "\e621";
-    font-family: !important;
+    font-family: icon !important;
 }
 
-#article-container .headerlink {
+#friend-container .headerlink {
     float: right;
     opacity: 0.08;
     border-bottom-style: none;
@@ -11578,7 +11576,7 @@ blockquote p {
     font-size: 1rem;
 }
 
-#article-container .headerlink:hover {
+#friend-container .headerlink:hover {
     background: none !important;
     opacity: 1;
     border-bottom: none !important;
