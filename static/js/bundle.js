@@ -55,7 +55,7 @@ function setPostDateList() {
 function setPostDate() {
     if (GLOBAL_CONFIG.passageTip.enable) {
         const messageBox = document.getElementById("passage-tip");
-        if (messageBox.getAttribute('data-tip-enable')) {
+        if (messageBox && messageBox.getAttribute('data-tip-enable')) {
             const date = messageBox.getAttribute('data-update-date');
             const days = getPeriod(date);
             if (days > GLOBAL_CONFIG.passageTip.day) {
