@@ -104,7 +104,7 @@ window.onload = function () {
 }
 
 // 友链随机传送
-function travelling() {
+window.travelling = function (files, success) {
     // 动态读取缓存
     const data = JSON.parse(saveToLocal.get('links-data'))
     // 去重
@@ -140,7 +140,7 @@ function travelling() {
 }
 
 //前往开往项目
-function totraveling() {
+window.totraveling = function (files, success) {
     btf.snackbarShow("即将跳转到「开往」项目的成员博客，不保证跳转网站的安全性和可用性", function (element) {
         element.style.opacity = 0,
             travellingsTimer && clearTimeout(travellingsTimer)
@@ -151,7 +151,7 @@ function totraveling() {
 }
 
 // 添加友链按钮
-function addFriendLink() {
+window.addFriendLink = function (files, success) {
     var input = document.getElementsByClassName(GLOBAL_CONFIG.source.comments.textarea)[0];
     let evt = document.createEvent('HTMLEvents');
     evt.initEvent('input', true, true);
@@ -624,7 +624,7 @@ var jqLoadAndRun = () => {
 }
 
 // 按需加载 js 或 css 文件，全部完成后调用 success 回调函数。 files: [{ path: '/js/file1.js', type: 'js' }, { path: '/css/file2.css', type: 'css' }]
-function loadFiles(files, success) {
+window.loadFiles = function (files, success) {
     let loadedCount = 0;
 
     files.forEach(file => {
