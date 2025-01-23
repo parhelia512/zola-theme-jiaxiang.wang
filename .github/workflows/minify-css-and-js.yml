@@ -1,6 +1,7 @@
 name: Minify JS/CSS on Change
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
