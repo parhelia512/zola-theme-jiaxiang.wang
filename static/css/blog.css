@@ -92,6 +92,8 @@ img, picture {
     --wjx-shadow-yellow: 0px 38px 77px -26px rgba(255, 201, 62, 0.12);
     --wjx-shadow-red: 0 8px 12px -3px #ee7d7936;
     --wjx-shadow-green: 0 8px 12px -3px #87ee7936;
+    --wjx-green: #57bd6a;
+    --wjx-green-op-deep: #57bd6a56;
     --wjx-logo-color: linear-gradient(215deg, #4584ff 0%, #cf0db9 100%);
     --wjx-snackbar-time: 5s;
     --style-border: 1px solid var(--wjx-card-border);
@@ -14157,6 +14159,7 @@ figure.gallery-group:hover .gallery-group-name::after {
     #footer-wrap {
         margin-top: 1rem !important;
     }
+    
 }
 
 .footer-bar-right {
@@ -14164,6 +14167,7 @@ figure.gallery-group:hover .gallery-group-name::after {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 
 #footer-wrap {
@@ -14953,8 +14957,11 @@ div#wjx-footer-bar .footer-bar-description {
     font-weight: 700;
     white-space: nowrap;
     padding: 8px;
-    border-radius: 12px;
-    line-height: 1
+    border-radius: 32px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 #footer-bar .footer-bar-link.cc {
@@ -18656,4 +18663,80 @@ div#equipment {
 
 .fade-in {
     opacity: 1 !important;
+}
+
+#beian-icon {
+    height: 14px;
+    width: auto;
+}
+
+#footer-bar .copyright-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#footer-bar .compliance-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#footer-bar .compliance-group .footer-bar-link {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0;
+    color: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+#footer-bar .compliance-group .footer-bar-link:hover {
+    background: none;
+}
+
+#footer-bar-tips {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+#copyright-logo {
+    width: 20px;
+    border-radius: 20px;
+    min-height: 20px;
+    min-width: 20px;
+}
+
+.status-light::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--wjx-green);   
+}
+
+.status-light {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--wjx-green-op-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    #footer-bar .copyright-group,
+    #footer-bar .compliance-group {
+        justify-content: center;
+    }
+    #footer-bar .footer-bar-right {
+        order: 1;
+    }
+    #footer-bar .footer-bar-left {
+        order: 2;
+    }
 }

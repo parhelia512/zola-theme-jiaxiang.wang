@@ -93,24 +93,45 @@
         <div class="footer-bar-links">
             <div class="footer-bar-left">
                 <div id="footer-bar-tips">
-                    <div>
+                    <div class="copyright-group">                    
                         {% set start = config.extra.site.start_year | default(value=now() | date(format="%Y")) | int %}
                         {% set current = now() | date(format="%Y") | int %}
-                        Copyright © <span class="inline-word" id="copyright-info">{% if start != current %}{{ start }} - {% endif %}{{ current }}</span>
-                        By <a class="footer-bar-link" href="/"  target="_blank">{{ config.title }}</a>
+                        © <span class="inline-word" id="copyright-info">{% if start != current %}{{ start }} - {% endif %}{{ current }}</span>
+                        &nbspBy&nbsp
+                        <a class="footer-bar-link" href="/"  target="_blank">
+                            <img id="copyright-logo" src="{{ config.extra.site.logo }}" loading="lazy"/>
+                            {{ config.title }}
+                        </a>
+                        {# 动态调整 #}
+                        <script defer>
+                            var startYear = {{ config.extra.site.start_year }};
+                            var currentYear = new Date().getFullYear();
+                            var copyrightInfo = `${startYear !== currentYear ? startYear + ' - ' : ''}${currentYear}`;
+                            document.getElementById('copyright-info').innerHTML = copyrightInfo;
+                        </script>
+                    </div>
+                    <div class="compliance-group">
+                        {% if config.extra.site.compliance_security and config.extra.site.compliance_security_link and config.extra.footer.gongwangan %}
+                        <a class="footer-bar-link" href="{{ config.extra.site.compliance_security_link }}"
+                           rel="noopener external nofollow noreferrer"
+                           target="_blank">
+                           <img id="beian-icon" src="/img/beian.avif" loading="lazy"/>
+                           <span>{{ config.extra.site.compliance_security }}</span>
+                        </a>
+                        {% endif %}
+                        {% if config.extra.site.compliance_icp and config.extra.footer.icp_icon %}
+                        <a class="footer-bar-link" href="https://beian.miit.gov.cn/#/Integrated/index"
+                           rel="noopener external nofollow noreferrer"
+                           target="_blank">
+                           {{ config.extra.site.compliance_icp }}
+                        </a>
+                        {% endif %}
+                        <a class="footer-bar-link" href="https://github.com/iWangJiaxiang/zola-theme-jiaxiang.wang">
+                            <div class="status-light"></div>
+                            <span>本站及主题基于 Zola 构建</span>
+                        </a>
                     </div>
                 </div>
-                <a class="footer-bar-link" href="https://www.getzola.org/"
-                    rel="noopener external nofollow noreferrer">
-                    本网站由 Zola 构建
-                </a>
-                {# 动态调整 #}
-                <script defer>
-                    var startYear = {{ config.extra.site.start_year }};
-                    var currentYear = new Date().getFullYear();
-                    var copyrightInfo = `${startYear !== currentYear ? startYear + ' - ' : ''}${currentYear}`;
-                    document.getElementById('copyright-info').innerHTML = copyrightInfo;
-                </script>
             </div>
             <div class="footer-bar-right">
                 <a class="footer-bar-link" href="/subscribe" target="_blank">订阅</a>
@@ -125,26 +146,6 @@
 
                 {% if config.extra.footer.feedback %}
                 <a class="footer-bar-link" href="{{ config.extra.footer.feedback_url }}" target="_blank">反馈</a>
-                {% endif %}
-
-                {% if config.extra.site.icp and config.extra.footer.icp_icon %}
-                <a class="footer-bar-link" href="https://beian.miit.gov.cn/#/Integrated/index"
-                   rel="noopener external nofollow noreferrer"
-                   target="_blank">
-                   {{ config.extra.site.icp }}
-                </a>
-                {% endif %}
-
-                {% if config.extra.site.gongan and config.extra.footer.gongwangan %}
-                <a class="footer-bar-link" href="http://www.beian.gov.cn/portal/registerSystemInfo"
-                   rel="noopener external nofollow noreferrer"
-                   target="_blank">
-                    {% if not config.extra.site.gongan | starts_with(pat="http") %}
-                        {{ config.extra.site.gongan }}
-                    {% else %}
-                        <img src="{{ config.extra.site.gongan }}" alt="gongan" loading="lazy"/>
-                    {% endif %}
-                </a>
                 {% endif %}
 
                 {% if config.extra.footer.copyright %}

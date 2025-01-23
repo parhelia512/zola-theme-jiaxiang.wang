@@ -213,9 +213,11 @@ favicon = "/img/logo.webp"
 # 建站时间
 # site_start_time = "2024-11-05"
 # ICP 备案 格式：鲁ICP备 xxxxxxxx 号
-icp = "ICP"
-# 公安备案 格式：皖公网安备 xxxxxxxx 号
-# gongan = "/img/beian.avif"
+compliance_icp = "ICP"
+# 公安备案
+# compliance_security = "鲁公网安备 xxxxxxxx 号"
+# 公安备案链接
+# compliance_security_link = "https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=xxxxxx"
 # 文章默认封面
 default_cover = "/img/default-cover.avif"
 # 网站联系邮箱
