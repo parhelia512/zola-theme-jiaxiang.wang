@@ -60,6 +60,7 @@ jobs:
         export PREFIX=static/production
         
         for file in ${{ steps.changed-files.outputs.CHANGED_FILES }}; do
+          [ ! -f $file ] && echo Skipped $file as it does not exist && continue
           echo Processing $file...
           if [[ $file == *.js ]]; then
             output_file="$PREFIX/${file#static/}"
