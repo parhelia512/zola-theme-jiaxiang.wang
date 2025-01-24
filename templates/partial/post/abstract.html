@@ -20,8 +20,9 @@
         {% endif %}
     </div>
     <div id="abstract-content" style="display: block;">
-        {% if page.description %}
-            {{ page.description | safe }}
+        {% set abstract = page.extra.abstract | default(value=page.description) %}
+        {% if abstract %}
+            {{ abstract | safe }}
         {% else %}
             {% if config.extra.post.abstract.mode == "local" %}
                 本地模式需要自己编写文章摘要，本文章还没有摘要哦~
