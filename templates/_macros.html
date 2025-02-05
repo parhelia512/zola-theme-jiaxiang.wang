@@ -194,17 +194,17 @@
 
 {# 生成缩略图，跳过avif格式和webp格式 {{ macro::thumbnail(url=post.cover) }} #}
 {% macro thumbnail(url, width=800, height=500, op="fit", format="webp") %}
-{% if url is ending_with(".avif") or url is ending_with(".svg") %}
+{%- if url is ending_with(".avif") or url is ending_with(".svg") -%}
     {{ url | trim | safe }}
-{% else %}
-    {% if url %}    
-        {% set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format="webp", quality=75) %}
-        {% set result = thumbnail.url %}
-    {% else %}
-        {% set result = config.extra.site.default_cover %}
-    {% endif %}
+{%- else -%}
+    {%- if url -%}    
+        {%- set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format="webp", quality=75) -%}
+        {%- set result = thumbnail.url -%}
+    {%- else -%}
+        {%- set result = config.extra.site.default_cover -%}
+    {%- endif -%}
     {{ result | trim | safe }}
-{% endif %}
+{%- endif -%}
 {% endmacro %}
 
 {# 生成缩略图 小 {{ macro::thumbnail_s(url=post.cover) }} #}
