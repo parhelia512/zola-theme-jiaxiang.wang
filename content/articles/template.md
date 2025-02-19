@@ -14,7 +14,7 @@ categories = ["misc"]
 
 [extra]
 # 当前目录下的封面
-cover = "cover.avif"
+cover = "cover.webp"
 # content下全局路径封面（封面存放的目录需要有被渲染的md文件，否则封面所在文件夹在渲染时不会保留）
 # 注意，由于 zola 框架尚未支持 avif 格式转换，请勿在 global_cover 中使用 avif 格式的图片，否则会报错
 global_cover  = "/articles/misc/path/to/cover.webp"

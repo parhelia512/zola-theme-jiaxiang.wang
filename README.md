@@ -48,6 +48,7 @@
   - [x] 右键菜单
   - [x] Pjax
   - [ ] i18n 国际化
+  - [x] AVIF 图片格式支持
   - [ ] 文章摘要
     - [x] 抽取本地文章描述
     - [ ] 基于 Post GPT by Tianli

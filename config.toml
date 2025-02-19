@@ -1050,6 +1050,8 @@ bubble_enable = true
 scrollbar_linear_gradient_enable = false
 # 标签云随机颜色效果
 tag_random_color_enable = true
+# AVIF 图片优化，大幅降低图片尺寸
+avif_enable = true
 
 # 懒加载
 [extra.other.lazyload]

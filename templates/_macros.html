@@ -197,8 +197,12 @@
 {%- if url is ending_with(".avif") or url is ending_with(".svg") -%}
     {{ url | trim | safe }}
 {%- else -%}
-    {%- if url -%}    
-        {%- set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format="webp", quality=75) -%}
+    {%- if url -%}
+        {%- if config.extra.other.avif_enable -%}
+            {%- set format = "avif" -%}
+            {%- set quality = 50 -%}
+        {%- endif -%}
+        {%- set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format=format, quality=quality) -%}
         {%- set result = thumbnail.url -%}
     {%- else -%}
         {%- set result = config.extra.site.default_cover -%}
@@ -292,23 +296,16 @@
 {% endmacro tree %}
 
 
-{# 获取文章封面 url {{ macro::post_cover(post=post, local_url=local_url) }} #}
-{% macro post_cover(post, local_url=true) %}
-{{- macro::post_cover_internal(post=post, local_url=local_url) | trim -}}
+{# 获取文章封面 url {{ macro::post_cover(post=post) }} #}
+{% macro post_cover(post) %}
+{{- macro::post_cover_internal(post=post) | trim -}}
 {% endmacro %}
 
 {# 内部使用 去除空格 #}
-{% macro post_cover_internal(post, local_url=true) %}
-    {% if local_url %}
-        {# 从 content 文件夹提取封面 #}
-        {% set path_prefix = post.colocated_path %}
-    {% else %}
-        {# 从 运行时的 url 获取封面 #}
-        {% set path_prefix = post.path %}
-    {% endif %}
+{% macro post_cover_internal(post) %}
     {% if post.extra.cover %}
         {# 使用绝对地址的封面 #}
-        {%- set cover = path_prefix ~ post.extra.cover %}
+        {%- set cover = post.colocated_path ~ post.extra.cover %}
     {% elif post.extra.global_cover %}
         {# 使用相对地址的封面 #}
         {%- set cover = post.extra.global_cover %}
@@ -320,50 +317,33 @@
 {% endmacro %}
 
 {# 渐进式加载图片 src 本地路径 web_url 为了临时解决手动加载avif的问题 #}
-{% macro img_progressive_loading(src, web_url="", alt="", id="", class="") %}
-{% set thumb_src = macro::get_webp_of_avif(src=src) %}
-{% if web_url != "" %}
-    {% set src = web_url %}
-{% endif %}
+{% macro img_progressive_loading(src, alt="", id="", class="") %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture">
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=thumb_src, width=16, height=9, op="fill", format="webp", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, height=9, op="fill", quality=1) | trim | safe }}" loading="lazy">
     {#- a lazy responsive image with data-srcset -#}
-    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=45em" />
-    <source src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=18em" />
+    {#- 60em = 960px -#}
+    <source media="(min-width: 60em)" srcset="{{ macro::thumbnail(url=src, width=960, height=576,) | trim | safe }}?w=60em" />
+    {#- 45em = 720px -#}
+    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=720, height=432,) | trim | safe }}?w=45em" />
+    {#- 30em = 500px -#}
+    <source media="(min-width: 30em)" srcset="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=30em" />
+    {#- 22em = 360px -#}
+    {#- todo Generate a webp image as fallback if avif is not supported -#}
     <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
       onload="progressiveLoad(this)" loading="lazy"
-      src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}"/>
+      src="{{ macro::thumbnail(url=src, width=360, height=216,) | trim | safe }}?w=22em"/>
     {#- a noscript fallback -#}
     <noscript>
       <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-        src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}">
+        src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=30em">
     </noscript>
 </picture>
 {% endmacro %}
 
 {% macro img_progressive_loading_post_cover(post, alt="", id="", class="") %}
-{% set cover = macro::post_cover(post=post, local_url=true) %}
-{# 只有 avif 避免处理路径 #}
-{% if cover is ending_with(".avif") %}
-{% set cover_url = macro::post_cover(post=post, local_url=false) %}
-{% else %}
-{% set cover_url = "" %}
-{% endif %}
-{% if alt != "" %}
-    {% set alt = alt %}
-{% endif %}
-{{ macro::img_progressive_loading(src=cover, web_url=cover_url, alt=alt, id=id, class=class) }}
-{% endmacro %}
-
-
-{# 渐进式加载图片，因为现在还不支持转换 avif 图片，需要从 avif 转换成 webp 文件路径 #}
-{% macro get_webp_of_avif(src) %}
-{%- if src is ending_with(".avif") -%}
-{{- src | replace(from=".avif", to=".webp") -}}
-{%- else -%}
-{{- src -}}
-{%- endif -%}
+{% set cover = macro::post_cover(post=post) %}
+{{ macro::img_progressive_loading(src=cover, alt=alt, id=id, class=class) }}
 {% endmacro %}
 
 

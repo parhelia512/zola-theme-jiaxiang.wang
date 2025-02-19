@@ -36,13 +36,11 @@
             {% set post = get_page(path=data.post.today_recommend.post_path ) %}
             {% set url = post.permalink %}
             {# 便于从 content 文件夹提取封面 #}
-            {% set cover = macro::post_cover(post=post, local_url=true) %}
-            {% set cover_url = macro::post_cover(post=post, local_url=false) %}
+            {% set cover = macro::post_cover(post=post) %}
             {% set title = post.title %}
         {% else %}
             {% set url = data.post.today_recommend.url %}
             {% set cover = data.post.today_recommend.cover %}
-            {% set cover_url = data.post.today_recommend.cover %}
             {% set title = data.post.today_recommend.title %}
         {% endif %}
 
@@ -51,7 +49,7 @@
                 <div class="todayCard-tips">{{ data.post.today_recommend.small_title }}</div>
                 <div class="todayCard-title">{{ title }}</div>
             </div>
-            {{ macro::img_progressive_loading(src=cover, web_url=cover_url, alt="Daily recommended post cover", class="todayCard-cover") }}
+            {{ macro::img_progressive_loading(src=cover, alt="Daily recommended post cover", class="todayCard-cover") }}
             <div class="banner-button-group">
                 <button class="banner-button" onclick="window.event.cancelBubble=!0;wjx.hideTodayCard()">
                     <i class="icon-circle-plus"></i>

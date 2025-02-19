@@ -10,7 +10,7 @@ categories = ["theme"]
 
 [extra]
 update_tip_enable = true
-cover = "cover.avif"
+cover = "cover.webp"
 +++
 
 # ℹ️ 简介

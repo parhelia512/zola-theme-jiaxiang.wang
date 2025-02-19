@@ -9,7 +9,7 @@ tags = ["blog", "featured", "hot"]
 categories = ["misc"]
 
 [extra]
-cover = "cover.avif"
+cover = "cover.webp"
 wechat_url = "https://mp.weixin.qq.com/s/xxx"
 +++
 
