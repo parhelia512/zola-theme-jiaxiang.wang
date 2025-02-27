@@ -301,7 +301,7 @@
         if($cookies_window!=null && $cookies_window!=''){
             $cookies_window.classList.add('cw-hide')
         }
-        if (window.getComputedStyle($rightside).getPropertyValue('opacity') === '0') {
+        if ($rightside && window.getComputedStyle($rightside).getPropertyValue('opacity') === '0') {
             $rightside.style.cssText = 'opacity: 0.8; transform: translateX(-58px)'
         }
     } else {
