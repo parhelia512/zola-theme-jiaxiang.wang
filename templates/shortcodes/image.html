@@ -7,7 +7,7 @@
 {% set class = "" -%}
 {% set resized = resize_image(format="avif", path=path | trim, width=width, op="fit_width") %}
 {% set resized_fallback = resize_image(format="webp", path=path | trim, width=width, op="fit_width") %}
-{% set thumb = resize_image(format="avif", path=path | trim, width=16, height=9, op="fill", format="webp", quality=1) %}
+{% set thumb = resize_image(format="avif", path=path | trim, width=16, op="fit_width", format="webp", quality=1) %}
 
 <picture class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"
     style="max-width:{{ width }}px;height:auto;"

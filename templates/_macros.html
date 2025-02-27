@@ -323,31 +323,31 @@
 {% macro img_progressive_loading(src, alt="", id="", class="", style="") %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} {{ style }}{% endif %}>
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, height=9, op="fill", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy">
     {#- a lazy responsive image with data-srcset -#}
     {#- 75em = 1200px -#}
-    <source media="(min-width: 75em)" srcset="{{ macro::thumbnail(url=src, width=1200, height=720, format="avif") | trim | safe }}?w=75em" />
+    <source media="(min-width: 75em)" srcset="{{ macro::thumbnail(url=src, width=1200, op="fit_width", format="avif") | trim | safe }}?w=75em" />
     {#- 60em = 960px -#}
-    <source media="(min-width: 60em)" srcset="{{ macro::thumbnail(url=src, width=960, height=576, format="avif") | trim | safe }}?w=60em" />
+    <source media="(min-width: 60em)" srcset="{{ macro::thumbnail(url=src, width=960, op="fit_width", format="avif") | trim | safe }}?w=60em" />
     {#- 45em = 720px -#}
-    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=720, height=432, format="avif") | trim | safe }}?w=45em" />
+    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=720, op="fit_width", format="avif") | trim | safe }}?w=45em" />
     {#- 30em = 500px -#}
-    <source media="(min-width: 30em)" srcset="{{ macro::thumbnail(url=src, width=500, height=300, format="avif") | trim | safe }}?w=30em" />
+    <source media="(min-width: 30em)" srcset="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="avif") | trim | safe }}?w=30em" />
     {#- 22em = 360px -#}
-    <source media="(min-width: 22em)" srcset="{{ macro::thumbnail(url=src, width=360, height=216, format="avif") | trim | safe }}?w=22em" />
+    <source media="(min-width: 22em)" srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="avif") | trim | safe }}?w=22em" />
     {#- Generate a webp image as fallback if avif is not supported -#}
     <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
       onload="progressiveLoad(this)" loading="lazy"
-      src="{{ macro::thumbnail(url=src, width=500, height=300, format="webp") | trim | safe }}?w=30em"
-      srcset="{{ macro::thumbnail(url=src, width=360, height=216, format="webp") | trim | safe }}?w=22em 360w,
-              {{ macro::thumbnail(url=src, width=500, height=300, format="webp") | trim | safe }}?w=30em 500w,
-              {{ macro::thumbnail(url=src, width=720, height=432, format="webp") | trim | safe }}?w=45em 720w,
-              {{ macro::thumbnail(url=src, width=960, height=576, format="webp") | trim | safe }}?w=60em 960w,
-              {{ macro::thumbnail(url=src, width=1200, height=720, format="webp") | trim | safe }}?w=75em 1200w"/>
+      src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em"
+      srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="webp") | trim | safe }}?w=22em 360w,
+              {{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em 500w,
+              {{ macro::thumbnail(url=src, width=720, op="fit_width", format="webp") | trim | safe }}?w=45em 720w,
+              {{ macro::thumbnail(url=src, width=960, op="fit_width", format="webp") | trim | safe }}?w=60em 960w,
+              {{ macro::thumbnail(url=src, width=1200, op="fit_width", format="webp") | trim | safe }}?w=75em 1200w"/>
     {#- a noscript fallback -#}
     <noscript>
       <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-        src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=30em">
+        src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em">
     </noscript>
 </picture>
 {% endmacro %}
@@ -362,7 +362,7 @@
 {% macro img_progressive_loading_single_size(src, alt="", id="", class="", style="", onclick="") %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} style="{{ style }}"{% endif %}{% if onclick != "" %} onclick="{{ onclick }}"{% endif %}>
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, height=9, op="fill", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy">
     {#- avif image -#}
     <source media="(min-width: 1em)" srcset="{{ macro::thumbnail(url=src, format="avif") | trim | safe }}" />
     {#- webp image -#}
