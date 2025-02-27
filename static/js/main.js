@@ -3,7 +3,9 @@
 // 定义区
 
 // Create a registry to track initialization states
-window.initializationRegistry = new Set();
+if (typeof window.initializationRegistry !== 'object') {
+    window.initializationRegistry = new Set();
+}
 // Track if this is a full page load
 window.isFullLoad = true;
 // Higher-order function to create run-once functions
