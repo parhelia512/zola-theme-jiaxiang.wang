@@ -13,15 +13,15 @@
     style="max-width:{{ width }}px;height:auto;"
     {# fancybox适配 #}{% if alt != "" %} alt="{{ alt }} "{% endif %}src="{{ resized.url | safe }}">
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail no-lightbox" src="{{ thumb.url | safe }}">
+    <img class="progressive-thumbnail no-lightbox" src="{{ thumb.url | safe }}" loading="lazy" decoding="async">
     {#- a lazy responsive image with data-srcset -#}
     <source media="(min-width: 1em)" srcset="{{ resized.url | safe }}" />
     <img class="progressive-content no-lightbox"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-      onload="progressiveLoad(this)" loading="lazy"
+      onload="progressiveLoad(this)" loading="lazy" decoding="async"
       src="{{ resized_fallback.url | safe }}"/>
     {#- a noscript fallback -#}
     <noscript>
-      <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+      <img loading="lazy" decoding="async"{% if alt != "" %} alt="{{ alt }}"{% endif %}
         src="{{ resized_fallback.url | safe }}">
     </noscript>
 </picture>

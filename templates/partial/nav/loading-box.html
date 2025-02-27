@@ -88,11 +88,11 @@
                 {#- avif image -#}
                 <source media="(min-width: 1em)" srcset="{{ macro::thumbnail_s(url=src, format="avif") | trim | safe }}" />
                 {#- webp image -#}
-                <img alt="Loading" loading="lazy"
+                <img alt="Loading" loading="lazy" decoding="async"
                   src="{{ macro::thumbnail_s(url=src, format="webp") | trim | safe }}"/>
                 {#- a noscript fallback -#}
                 <noscript>
-                  <img loading="lazy"
+                  <img loading="lazy" decoding="async"
                     src="{{ macro::thumbnail_s(url=src, format="webp") | trim | safe }}">
                 </noscript>
             </picture>

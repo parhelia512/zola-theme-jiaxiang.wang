@@ -15,7 +15,7 @@
                             {% endif %}
                                     <div class="tags-group-icon" style="background:{{ tech.bg_color }}">
                                         {% if tech.logo %}
-                                        <img src="{{ tech.logo | safe }}" title="{{ tech.name }}">
+                                        <img src="{{ tech.logo | safe }}" title="{{ tech.name }}" loading="lazy" decoding="async">
                                         {% elif tech.icon %}
                                         <i class="{{ tech.icon }}"></i>
                                         {% elif tech.svg_symbol_id %}
@@ -40,7 +40,7 @@
                     <div class="skill-info">
                         <div class="skill-icon" style="background:{{ tech.bg_color }}">
                             {% if tech.logo %}
-                            <img src="{{ tech.logo | safe }}" title="{{ tech.name }}">
+                            <img src="{{ tech.logo | safe }}" title="{{ tech.name }}" loading="lazy" decoding="async">
                             {% elif tech.icon %}
                             <i class="{{ tech.icon }}"></i>
                             {% elif tech.svg_symbol_id %}

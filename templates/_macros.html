@@ -100,7 +100,7 @@
                                 {% if sub_menu.icon  %}
                                     <i class="{{ sub_menu.icon }}" style="font-size:.9em"></i>
                                 {% elif sub_menu.icon_img %}
-                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}" loading="lazy">
+                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}" loading="lazy" decoding="async">
                                 {% endif %}
                                 <span class="back-menu-item-text">{{ sub_menu.name }}</span>
                             </a>
@@ -323,7 +323,7 @@
 {% macro img_progressive_loading(src, alt="", id="", class="", style="") %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} {{ style }}{% endif %}>
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy" decoding="async">
     {#- a lazy responsive image with data-srcset -#}
     {#- 75em = 1200px -#}
     <source media="(min-width: 75em)" srcset="{{ macro::thumbnail(url=src, width=1200, op="fit_width", format="avif") | trim | safe }}?w=75em" />
@@ -337,7 +337,7 @@
     <source media="(min-width: 22em)" srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="avif") | trim | safe }}?w=22em" />
     {#- Generate a webp image as fallback if avif is not supported -#}
     <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-      onload="progressiveLoad(this)" loading="lazy"
+      onload="progressiveLoad(this)" loading="lazy" decoding="async"
       src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em"
       srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="webp") | trim | safe }}?w=22em 360w,
               {{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em 500w,
@@ -346,7 +346,7 @@
               {{ macro::thumbnail(url=src, width=1200, op="fit_width", format="webp") | trim | safe }}?w=75em 1200w"/>
     {#- a noscript fallback -#}
     <noscript>
-      <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+      <img loading="lazy" decoding="async"{% if alt != "" %} alt="{{ alt }}"{% endif %}
         src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em">
     </noscript>
 </picture>
@@ -362,16 +362,16 @@
 {% macro img_progressive_loading_single_size(src, alt="", id="", class="", style="", onclick="") %}
 <picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} style="{{ style }}"{% endif %}{% if onclick != "" %} onclick="{{ onclick }}"{% endif %}>
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy" decoding="async">
     {#- avif image -#}
     <source media="(min-width: 1em)" srcset="{{ macro::thumbnail(url=src, format="avif") | trim | safe }}" />
     {#- webp image -#}
     <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-      onload="progressiveLoad(this)" loading="lazy"
+      onload="progressiveLoad(this)" loading="lazy" decoding="async"
       src="{{ macro::thumbnail(url=src, format="webp") | trim | safe }}"/>
     {#- a noscript fallback -#}
     <noscript>
-      <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+      <img loading="lazy" decoding="async"{% if alt != "" %} alt="{{ alt }}"{% endif %}
         src="{{ macro::thumbnail(url=src, format="webp") | trim | safe }}">
     </noscript>
 </picture>

@@ -35,7 +35,7 @@
         {% set img = macro::thumbnail_s(url=macro::post_cover(post=post)) %}
         <div class="coverdiv loaded" id="coverdiv">
             <img alt="cover" class="nolazyload" id="post-cover"
-                 src="{{ img | safe }}" loading="lazy">
+                 src="{{ img | safe }}" loading="lazy" decoding="async">
         </div>
         <div id="post-info">
             <div id="post-firstinfo">
