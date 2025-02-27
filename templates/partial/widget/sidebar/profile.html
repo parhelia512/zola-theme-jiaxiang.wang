@@ -10,8 +10,7 @@
                 <div class="author-info__top-group">
                     <div class="author-info__sayhi" id="author-info__sayhi" onclick="wjx.changeSayHelloText()">好久不见，你终于来了
                     </div>
-                    {% set img = macro::thumbnail(url=config.extra.site.logo, width=118, height=118, format="webp") | trim %}
-                    <img class="avatar-img" loading="lazy" src="{{ img | trim | safe }}">
+                    {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo, class="avatar-img") }}
                 </div>
                 {% if config.author %}
                     <div class="author-info__name">{{ config.author }}</div>
@@ -140,8 +139,7 @@
                 </div>
             </div>
             <div class="avatar-img-group">
-                {% set img = macro::thumbnail_m(url=config.extra.site.logo) %}
-                <img class="avatar-img" alt="avatar" loading="lazy" src="{{ img | trim | safe }}">
+                {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo, class="avatar-img") }}
             </div>
             <div class="author-info__description_group">
                 {{ config.extra.sidebar.profile.profile_desc | safe }}
@@ -191,7 +189,7 @@
                 align-items: flex-start
             }
 
-            #aside-content .card-info img.avatar-img {
+            #aside-content .card-info .avatar-img {
                 width: 118px;
                 right: 0;
                 top: 0;
@@ -203,7 +201,7 @@
                 overflow: hidden
             }
 
-            .page #aside-content .card-info img.avatar-img {
+            .page #aside-content .card-info .avatar-img {
                 border-color: var(--wjx-card-bg)
             }
 

@@ -31,7 +31,7 @@
                                 {% else %}
                                     {% set img = link.logo %}
                                 {% endif %}
-                                <img title="{{ link.display_name }}" loading="lazy" src="{{ img | trim | safe }}">
+                                {{ macro::img_progressive_loading_single_size(src=img, alt=link.display_name ) }}
                             </a>
                         {% if not odd %}
                             </div>
@@ -72,15 +72,13 @@
 
                             <a class="img" target="_blank" href="{{ link.url }}" title="{{ link.display_name }}" rel="external nofollow noopener" >
                                 {% set img = link.siteshot | default(value=link.logo) %}
-                                <img class="flink-avatar" style="pointer-events: none;" alt="{{ link.display_name }}"
-                                    loading="lazy" src="{{ img | trim | safe }}">
+                                {{ macro::img_progressive_loading_single_size(src=img, alt=link.display_name, class="flink-avatar", style="pointer-events: none;") }}
                             </a>
 
                             <a class="info cf-friends-link" target="_blank" href="{{ link.url }}"
                                title="{{ link.display_name }}" rel="external nofollow noopener">
                                 <div class="site-card-avatar no-lightbox">
-                                    <img class="flink-avatar cf-friends-avatar" alt="{{ link.display_name }}"
-                                        loading="lazy" src="{{ link.logo | trim | safe }}">                             
+                                    {{ macro::img_progressive_loading_single_size(src=link.logo, alt=link.display_name, class="flink-avatar cf-friends-avatar") }}                          
                                 </div>
                                 <div class="site-card-text">
                                     <span class="title cf-friends-name">{{ link.display_name }}</span>
@@ -102,12 +100,11 @@
                             {% endif %}
                             <a class="cf-friends-link friend-link" rel="external nofollow noopener" target="_blank" href="{{ link.url }}"
                                title="{{ link.display_name }}">
-                                <img class="flink-avatar cf-friends-avatar" alt="{{ link.display_name }}"
-                                    loading="lazy" src="{{ link.logo | trim | safe }}">
+                                {{ macro::img_progressive_loading_single_size(src=link.logo, alt=link.display_name, class="flink-avatar cf-friends-avatar") }}                          
                                 <div class="flink-item-info no-lightbox">
                                     <span class="flink-item-name cf-friends-name">{{ link.display_name }}</span>
                                     <span class="flink-item-desc" title="{{ link.description }}">{{ link.description }}</span>
-                                    <img loading="lazy" src="{{ link.logo | trim | safe }}">
+                                    {{ macro::img_progressive_loading_single_size(src=link.logo) }}                          
                                 </div>
                             </a>
                         </div>

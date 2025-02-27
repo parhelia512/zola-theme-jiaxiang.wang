@@ -74,8 +74,7 @@
             </div>
             {% endif %}
             {% if config.extra.about.careers.bg %}
-            <img alt="生涯" class="author-content-img" 
-                src="{{ config.extra.about.careers.bg }}">
+                {{ macro::img_progressive_loading_single_size(src=config.extra.about.careers.bg, alt="生涯", class="author-content-img") }}
             {% endif %}
         </div>
     </div>

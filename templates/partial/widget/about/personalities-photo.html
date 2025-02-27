@@ -199,7 +199,7 @@
         {% endif %}
 
     </div>
-    <div class="author-content-item myphoto"><img alt="自拍" class="author-content-img"
-                                               src="{{ config.extra.site.author.about_image | safe }}">
+    <div class="author-content-item myphoto">
+        {{ macro::img_progressive_loading_single_size(src=config.extra.site.author.about_image, alt="照片") }}
     </div>
 </div>

@@ -65,16 +65,14 @@
         <li class="reward-item">
           <button href="{{ config.extra.about_reward.reward.wxPay }}"
              rel="external nofollow noopener noreferrer" target="_blank" draggable="false">
-            <img class="entered loaded" alt="微信" loading="lazy"
-                 src="{{ config.extra.about_reward.reward.wxPay }}">
+            {{ macro::img_progressive_loading_single_size(src=config.extra.about_reward.reward.wxPay, alt="微信") }}
           </button>
           <div class="post-qr-code-desc">微信</div>
         </li>
         <li class="reward-item">
           <button href="{{ config.extra.about_reward.reward.alipay }}"
              rel="external nofollow noopener noreferrer" target="_blank" draggable="false">
-            <img class="entered loaded" alt="支付宝" loading="lazy"
-                 src="{{ config.extra.about_reward.reward.alipay }}">
+            {{ macro::img_progressive_loading_single_size(src=config.extra.about_reward.reward.alipay, alt="支付宝") }}
           </button>
           <div class="post-qr-code-desc">支付宝</div>
         </li>

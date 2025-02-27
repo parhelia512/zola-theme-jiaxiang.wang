@@ -69,7 +69,7 @@
                     {% if authorReward.avatar %}
                     <div>
                         <div class="reward-list-item-avatar">
-                            <img src="{{ authorReward.avatar | safe }}" alt="{{ authorReward.name}}">
+                            {{ macro::img_progressive_loading_single_size(src=authorReward.avatar, alt=authorReward.name) }}
                         </div>
                         <div style="z-index:20;float: left;" class="reward-list-item-avatar-group">
                             <div class="reward-list-item-name">{{ authorReward.name }}</div>

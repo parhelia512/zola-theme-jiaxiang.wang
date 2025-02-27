@@ -29,7 +29,8 @@
 
         #loading-box .loading-img {
             width: 100px;
-            height: auto;
+            height: 100px;
+            overflow: hidden;
             margin: auto;
             animation-duration: 0.2s;
             animation-name: loadingAction;
@@ -82,7 +83,19 @@
     </style>
     <div id="loading-box" onclick="wjx.hideLoading()">
         <div class="loading-bg">
-            <img class="loading-img" style="border-radius: 50%; width: 100px; height: auto;" src="{{ macro::thumbnail_s(url=config.extra.other.loading_box.img) | trim | safe }}" alt="loading" loading="lazy">
+            {% set src = config.extra.other.loading_box.img %}
+            <picture class="loading-img" style="border-radius: 50%; width: 100px; height: 100px;">
+                {#- avif image -#}
+                <source media="(min-width: 1em)" srcset="{{ macro::thumbnail_s(url=src, format="avif") | trim | safe }}" />
+                {#- webp image -#}
+                <img alt="Loading" loading="lazy"
+                  src="{{ macro::thumbnail_s(url=src, format="webp") | trim | safe }}"/>
+                {#- a noscript fallback -#}
+                <noscript>
+                  <img loading="lazy"
+                    src="{{ macro::thumbnail_s(url=src, format="webp") | trim | safe }}">
+                </noscript>
+            </picture>
             <div class="loading-image-dot"></div>
         </div>
     </div>

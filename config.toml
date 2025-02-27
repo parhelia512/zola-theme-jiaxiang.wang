@@ -836,7 +836,7 @@ reward_md_url = "/about"
 # 打赏按钮
 [extra.about_reward.reward]
 # 启用打赏
-enable = true
+enable = false
 # 文章页面打赏
 enable_wz = true
 # 打赏按钮名称
