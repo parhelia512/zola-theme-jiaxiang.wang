@@ -100,7 +100,7 @@
                                 {% if sub_menu.icon  %}
                                     <i class="{{ sub_menu.icon }}" style="font-size:.9em"></i>
                                 {% elif sub_menu.icon_img %}
-                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}" loading="lazy">
+                                    <img class="back-menu-item-icon" src="{{ sub_menu.icon_img }}" loading="lazy" decoding="async">
                                 {% endif %}
                                 <span class="back-menu-item-text">{{ sub_menu.name }}</span>
                             </a>
@@ -193,12 +193,19 @@
 {% endmacro %}
 
 {# 生成缩略图，跳过avif格式和webp格式 {{ macro::thumbnail(url=post.cover) }} #}
-{% macro thumbnail(url, width=800, height=500, op="fit", format="webp") %}
+{% macro thumbnail(url, width=800, height=500, op="fit", quality=75, format="webp") %}
 {%- if url is ending_with(".avif") or url is ending_with(".svg") -%}
     {{ url | trim | safe }}
 {%- else -%}
-    {%- if url -%}    
-        {%- set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format="webp", quality=75) -%}
+    {%- if url -%}
+        {%- if format == "avif" -%}
+            {%- if not config.extra.other.avif_enable -%}
+                {%- set format = "webp" -%}
+            {%- else -%}
+                {%- set quality = 50 -%}
+            {%- endif -%}
+        {%- endif -%}
+        {%- set thumbnail = resize_image(path=url | trim, width=width, height=height, op=op, format=format, quality=quality) -%}
         {%- set result = thumbnail.url -%}
     {%- else -%}
         {%- set result = config.extra.site.default_cover -%}
@@ -208,23 +215,23 @@
 {% endmacro %}
 
 {# 生成缩略图 小 {{ macro::thumbnail_s(url=post.cover) }} #}
-{% macro thumbnail_s(url, width=200, height=120, op="fit") %}
-{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op) -}}
+{% macro thumbnail_s(url, width=200, height=120, op="fit", format="webp") %}
+{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op, format=format) -}}
 {% endmacro %}
 
 {# 生成缩略图 中等 {{ macro::thumbnail_m(url=post.cover) }} #}
-{% macro thumbnail_m(url, width=500, height=300, op="fit") %}
-{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op) -}}
+{% macro thumbnail_m(url, width=500, height=300, op="fit", format="webp") %}
+{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op, format=format) -}}
 {% endmacro %}
 
 {# 生成缩略图 大 {{ macro::thumbnail_l(url=post.cover) }} #}
-{% macro thumbnail_l(url, width=800, height=500, op="fit") %}
-{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op) -}}
+{% macro thumbnail_l(url, width=800, height=500, op="fit", format="webp") %}
+{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op, format=format) -}}
 {% endmacro %}
 
 {# 生成缩略图 大 {{ macro::thumbnail_l(url=post.cover) }} #}
-{% macro thumbnail_xl(url, width=1200, height=800, op="fit") %}
-{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op) -}}
+{% macro thumbnail_xl(url, width=1200, height=800, op="fit", format="webp") %}
+{{-  macro::thumbnail(url=url | safe, width=width, height=height, op=op, format=format) -}}
 {% endmacro %}
 
 {# 获取阅读时间 https://www.owenyoung.com/blog/reading-time/ #}
@@ -292,23 +299,16 @@
 {% endmacro tree %}
 
 
-{# 获取文章封面 url {{ macro::post_cover(post=post, local_url=local_url) }} #}
-{% macro post_cover(post, local_url=true) %}
-{{- macro::post_cover_internal(post=post, local_url=local_url) | trim -}}
+{# 获取文章封面 url {{ macro::post_cover(post=post) }} #}
+{% macro post_cover(post) %}
+{{- macro::post_cover_internal(post=post) | trim -}}
 {% endmacro %}
 
 {# 内部使用 去除空格 #}
-{% macro post_cover_internal(post, local_url=true) %}
-    {% if local_url %}
-        {# 从 content 文件夹提取封面 #}
-        {% set path_prefix = post.colocated_path %}
-    {% else %}
-        {# 从 运行时的 url 获取封面 #}
-        {% set path_prefix = post.path %}
-    {% endif %}
+{% macro post_cover_internal(post) %}
     {% if post.extra.cover %}
         {# 使用绝对地址的封面 #}
-        {%- set cover = path_prefix ~ post.extra.cover %}
+        {%- set cover = post.colocated_path ~ post.extra.cover %}
     {% elif post.extra.global_cover %}
         {# 使用相对地址的封面 #}
         {%- set cover = post.extra.global_cover %}
@@ -319,53 +319,63 @@
     {{- cover -}}
 {% endmacro %}
 
-{# 渐进式加载图片 src 本地路径 web_url 为了临时解决手动加载avif的问题 #}
-{% macro img_progressive_loading(src, web_url="", alt="", id="", class="") %}
-{% set thumb_src = macro::get_webp_of_avif(src=src) %}
-{% if web_url != "" %}
-    {% set src = web_url %}
-{% endif %}
-<picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture">
+{# 渐进式加载图片 src 本地路径 #}
+{% macro img_progressive_loading(src, alt="", id="", class="", style="") %}
+<picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} {{ style }}{% endif %}>
     {#- the small image that will be blurred -#}
-    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=thumb_src, width=16, height=9, op="fill", format="webp", quality=1) | trim | safe }}" loading="lazy">
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy" decoding="async">
     {#- a lazy responsive image with data-srcset -#}
-    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=45em" />
-    <source src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}?w=18em" />
+    {#- 75em = 1200px -#}
+    <source media="(min-width: 75em)" srcset="{{ macro::thumbnail(url=src, width=1200, op="fit_width", format="avif") | trim | safe }}?w=75em" />
+    {#- 60em = 960px -#}
+    <source media="(min-width: 60em)" srcset="{{ macro::thumbnail(url=src, width=960, op="fit_width", format="avif") | trim | safe }}?w=60em" />
+    {#- 45em = 720px -#}
+    <source media="(min-width: 45em)" srcset="{{ macro::thumbnail(url=src, width=720, op="fit_width", format="avif") | trim | safe }}?w=45em" />
+    {#- 30em = 500px -#}
+    <source media="(min-width: 30em)" srcset="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="avif") | trim | safe }}?w=30em" />
+    {#- 22em = 360px -#}
+    <source media="(min-width: 22em)" srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="avif") | trim | safe }}?w=22em" />
+    {#- Generate a webp image as fallback if avif is not supported -#}
     <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-      onload="progressiveLoad(this)" loading="lazy"
-      src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}"/>
+      onload="progressiveLoad(this)" loading="lazy" decoding="async"
+      src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em"
+      srcset="{{ macro::thumbnail(url=src, width=360, op="fit_width", format="webp") | trim | safe }}?w=22em 360w,
+              {{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em 500w,
+              {{ macro::thumbnail(url=src, width=720, op="fit_width", format="webp") | trim | safe }}?w=45em 720w,
+              {{ macro::thumbnail(url=src, width=960, op="fit_width", format="webp") | trim | safe }}?w=60em 960w,
+              {{ macro::thumbnail(url=src, width=1200, op="fit_width", format="webp") | trim | safe }}?w=75em 1200w"/>
     {#- a noscript fallback -#}
     <noscript>
-      <img loading="lazy"{% if alt != "" %} alt="{{ alt }}"{% endif %}
-        src="{{ macro::thumbnail(url=src, width=500, height=300,) | trim | safe }}">
+      <img loading="lazy" decoding="async"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+        src="{{ macro::thumbnail(url=src, width=500, op="fit_width", format="webp") | trim | safe }}?w=30em">
     </noscript>
 </picture>
 {% endmacro %}
 
+{# 渐进式加载文章图片 #}
 {% macro img_progressive_loading_post_cover(post, alt="", id="", class="") %}
-{% set cover = macro::post_cover(post=post, local_url=true) %}
-{# 只有 avif 避免处理路径 #}
-{% if cover is ending_with(".avif") %}
-{% set cover_url = macro::post_cover(post=post, local_url=false) %}
-{% else %}
-{% set cover_url = "" %}
-{% endif %}
-{% if alt != "" %}
-    {% set alt = alt %}
-{% endif %}
-{{ macro::img_progressive_loading(src=cover, web_url=cover_url, alt=alt, id=id, class=class) }}
+{% set cover = macro::post_cover(post=post) %}
+{{ macro::img_progressive_loading(src=cover, alt=alt, id=id, class=class) }}
 {% endmacro %}
 
-
-{# 渐进式加载图片，因为现在还不支持转换 avif 图片，需要从 avif 转换成 webp 文件路径 #}
-{% macro get_webp_of_avif(src) %}
-{%- if src is ending_with(".avif") -%}
-{{- src | replace(from=".avif", to=".webp") -}}
-{%- else -%}
-{{- src -}}
-{%- endif -%}
+{# 渐进式加载图片 src 本地路径，无尺寸自适应，用于提供avif和webp支持 #}
+{% macro img_progressive_loading_single_size(src, alt="", id="", class="", style="", onclick="") %}
+<picture {% if id != "" %}id="{{ id }}" {% endif %} class="{% if class != "" %}{{ class }} {% endif %}progressive-picture"{% if style != "" %} style="{{ style }}"{% endif %}{% if onclick != "" %} onclick="{{ onclick }}"{% endif %}>
+    {#- the small image that will be blurred -#}
+    <img class="progressive-thumbnail" src="{{ macro::thumbnail(url=src, width=16, op="fit_width", quality=1) | trim | safe }}" loading="lazy" decoding="async">
+    {#- avif image -#}
+    <source media="(min-width: 1em)" srcset="{{ macro::thumbnail(url=src, format="avif") | trim | safe }}" />
+    {#- webp image -#}
+    <img class="progressive-content"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+      onload="progressiveLoad(this)" loading="lazy" decoding="async"
+      src="{{ macro::thumbnail(url=src, format="webp") | trim | safe }}"/>
+    {#- a noscript fallback -#}
+    <noscript>
+      <img loading="lazy" decoding="async"{% if alt != "" %} alt="{{ alt }}"{% endif %}
+        src="{{ macro::thumbnail(url=src, format="webp") | trim | safe }}">
+    </noscript>
+</picture>
 {% endmacro %}
-
 
 {# 获取生产环境优化后的 js/css 文件，如果不存在则使用原始文件 #}
 {% macro get_production_path(path) %}

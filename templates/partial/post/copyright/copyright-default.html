@@ -16,13 +16,13 @@
                             <ul class="reward-group">
                                 <li class="reward-item">
                                     <a href="{{ config.extra.about_reward.reward.wxPay }}" target="_blank">
-                                        <img alt="微信" class="post-qr-code-img" src="{{ config.extra.about_reward.reward.wxPay }}" loading="lazy">
+                                        {{ macro::img_progressive_loading_single_size(src=config.extra.about_reward.reward.wxPay, alt="微信", class="post-qr-code-img") }}
                                     </a>
                                     <div class="post-qr-code-desc">微信</div>
                                 </li>
                                 <li class="reward-item">
                                     <a href="{{ config.extra.about_reward.reward.alipay }}" target="_blank">
-                                        <img alt="支付宝" class="post-qr-code-img" src="{{ config.extra.about_reward.reward.alipay }}" loading="lazy">
+                                        {{ macro::img_progressive_loading_single_size(src=config.extra.about_reward.reward.alipay, alt="支付宝", class="post-qr-code-img") }}
                                     </a>
                                     <div class="post-qr-code-desc">支付宝</div>
                                 </li>

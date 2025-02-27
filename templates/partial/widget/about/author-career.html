@@ -15,7 +15,7 @@
                             {% endif %}
                                     <div class="tags-group-icon" style="background:{{ tech.bg_color }}">
                                         {% if tech.logo %}
-                                        <img src="{{ tech.logo | safe }}" title="{{ tech.name }}">
+                                        <img src="{{ tech.logo | safe }}" title="{{ tech.name }}" loading="lazy" decoding="async">
                                         {% elif tech.icon %}
                                         <i class="{{ tech.icon }}"></i>
                                         {% elif tech.svg_symbol_id %}
@@ -40,7 +40,7 @@
                     <div class="skill-info">
                         <div class="skill-icon" style="background:{{ tech.bg_color }}">
                             {% if tech.logo %}
-                            <img src="{{ tech.logo | safe }}" title="{{ tech.name }}">
+                            <img src="{{ tech.logo | safe }}" title="{{ tech.name }}" loading="lazy" decoding="async">
                             {% elif tech.icon %}
                             <i class="{{ tech.icon }}"></i>
                             {% elif tech.svg_symbol_id %}
@@ -74,8 +74,7 @@
             </div>
             {% endif %}
             {% if config.extra.about.careers.bg %}
-            <img alt="生涯" class="author-content-img" 
-                src="{{ config.extra.about.careers.bg }}">
+                {{ macro::img_progressive_loading_single_size(src=config.extra.about.careers.bg, alt="生涯", class="author-content-img") }}
             {% endif %}
         </div>
     </div>

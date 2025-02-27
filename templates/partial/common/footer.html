@@ -29,11 +29,7 @@
         {% endfor %}
 
         {% if config.extra.footer.social_media.img_enable %}
-            {% set logo = macro::thumbnail(url=config.extra.site.logo, width=118, height=118) | trim | safe %}
-            <img class="footer_mini_logo" style="border-radius: 500px;"
-                 src="{{ logo }}"
-                 loading="lazy"
-                 title="返回顶部" onclick="btf.scrollToDest(0, 500)">
+            {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo, alt="返回顶部", class="footer_mini_logo", style="border-radius: 500px;", onclick="btf.scrollToDest(0, 500)") }}
         {% endif %}
 
         {% for socialMedia in config.extra.footer.social_media.right %}
@@ -99,7 +95,7 @@
                         © <span class="inline-word" id="copyright-info">{% if start != current %}{{ start }} - {% endif %}{{ current }}</span>
                         &nbspBy&nbsp
                         <a class="footer-bar-link" href="/"  target="_blank">
-                            <img id="copyright-logo" src="{{ config.extra.site.logo }}" loading="lazy"/>
+                            {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo, id="copyright-logo") }}
                             {{ config.title }}
                         </a>
                         {# 动态调整 #}
@@ -115,7 +111,7 @@
                         <a class="footer-bar-link" href="{{ config.extra.site.compliance_security_link }}"
                            rel="noopener external nofollow noreferrer"
                            target="_blank">
-                           <img id="beian-icon" src="/img/beian.avif" loading="lazy"/>
+                           {{ macro::img_progressive_loading_single_size(src="/img/beian.png", id="beian-icon") }}
                            <span>{{ config.extra.site.compliance_security }}</span>
                         </a>
                         {% endif %}

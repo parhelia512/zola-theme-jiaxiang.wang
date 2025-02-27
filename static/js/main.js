@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
-    checkAvif()
+    // checkAvif()
 
     window.refreshFn = function () {
         initAdjust();

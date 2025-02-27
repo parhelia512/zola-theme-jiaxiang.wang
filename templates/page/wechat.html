@@ -18,7 +18,7 @@
 <div class="wechatOA" style="margin-top: 10%;">
     <div class="wechat">
       <div class="wechat-card">
-        <img src="/img/wechat/qr.avif" class="qrcode" alt="qrcode" loading="lazy">
+        {{ macro::img_progressive_loading_single_size(src="/img/wechat/qr.jpg",class="qrcode", alt="qrcode") }}
         <div class="tips">扫描二维码关注公众号</div>
         <div class="wechatOA-card">
           <div class="wechatOA-head" style="background-image: url(/img/logo.webp);"></div>

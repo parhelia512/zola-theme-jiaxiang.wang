@@ -44,7 +44,7 @@
                         </div>
                     {% endif %}
                     <div class="author-img">
-                        <img src="{{ macro::thumbnail_m(url=config.extra.site.logo) }}" loading="lazy">
+                        {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo) }}
                     </div>
                     {% if config.extra.about.author_info_right_tags | length > 0 %}
                         <div class="author-tag-right">

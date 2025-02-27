@@ -48,6 +48,7 @@
   - [x] Right-click Menu
   - [x] Pjax
   - [ ] i18n
+  - [x] AVIF Image Format Support
   - [ ] Article Abstract
     - [x] Local Article Description
     - [ ] Post GPT by Tianli

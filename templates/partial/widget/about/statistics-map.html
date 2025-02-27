@@ -2,7 +2,6 @@
 <div class="author-content">
     <div class="about-statistic author-content-item"
          style="background-color: #D9AFD9;background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);">
-         {# style="background: url(https://bu.dusays.com/2023/03/12/640dc8c72f623.webp);"> #}
         <div class="card-content">
             <div class="author-content-item-tips">数据</div>
             <span class="author-content-item-title">访问统计</span>
@@ -24,6 +23,7 @@
             <span class="map-title">我现在住在
                 <b>{{ config.extra.about.map.StrengthenTitle }}</b>
             </span>
+            {{ macro::img_progressive_loading_single_size(src=config.extra.about.map.background, class="map-img") }}
         </div>
         {% if config.extra.about.map.authorInfo %}
         {% set texts = config.extra.about.map.authorInfo %}
@@ -43,7 +43,6 @@
 
     <style>
         .author-content-item.map {
-            background: url({{ macro::thumbnail_m(url=config.extra.about.map.background) | safe | safe  }}) no-repeat center;
             min-height: 160px;
             max-height: 400px;
             position: relative;
@@ -52,19 +51,7 @@
             height: 60%;
             background-size: 100%;
             transition: 1s ease-in-out;
-        }
-        
-        [data-theme=dark] .author-content-item.map {
-            background: url({{ macro::thumbnail_m(url=config.extra.about.map.backgroundDark) | safe | safe }}) no-repeat center;
-            background-size: 100%;
-        }
-        
-        .author-content-item.map:hover {
-            background-size: 120%;
-            transition: 4s ease-in-out;
-            background-position-x: 0;
-            background-position-y: 36%;
-        }
+        }        
         
         .author-content-item.map .map-title {
             position: absolute;
@@ -97,6 +84,22 @@
             .author-content-item.map .map-title {
                 padding: 1rem;
             }
+        }
+
+        .map-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .map-img:hover {
+            width: 120%;
+            height: 120%;
+            transition: 4s ease-in-out;
         }
     </style>
 
