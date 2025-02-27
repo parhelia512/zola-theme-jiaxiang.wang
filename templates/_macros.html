@@ -192,7 +192,7 @@
 {% endif %}
 {% endmacro %}
 
-{# 生成缩略图，跳过avif格式和webp格式 {{ macro::thumbnail(url=post.cover) }} #}
+{# 生成缩略图，跳过avif格式和svg格式 {{ macro::thumbnail(url=post.cover) }} #}
 {% macro thumbnail(url, width=800, height=500, op="fit", quality=75, format="webp") %}
 {%- if url is ending_with(".avif") or url is ending_with(".svg") -%}
     {{ url | trim | safe }}
