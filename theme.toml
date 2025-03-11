@@ -33,7 +33,7 @@ compliance_icp = "ICP"
 # 公安备案链接
 # compliance_security_link = "https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=xxxxxx"
 # 文章默认封面
-default_cover = "/img/default-cover.avif"
+default_cover = "/img/default-cover.webp"
 # 网站联系邮箱
 email = "mail@example.com"
 # 建站时间，用于底部显示年份
