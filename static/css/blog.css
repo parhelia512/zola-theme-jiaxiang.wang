@@ -1726,7 +1726,8 @@ blockquote footer cite::before {
     }
 
     #recent-posts .recent-post-item .recent-post-info .article-title {
-        font-size: 1.43em;
+        font-size: 18px;
+        line-height: 26px
     }
 
     #recent-posts .recent-post-item .recent-post-info .content {
@@ -8742,7 +8743,7 @@ li {
 .recent-post-item .recent-post-info .recent-post-info-top .original {
     display: flex;
     color: var(--wjx-secondtext);
-    font-size: .6rem;
+    font-size: .5rem;
     position: relative;
     margin-right: 8px
 }
@@ -8751,12 +8752,6 @@ li {
     display: flex;
     margin-top: 20px;
     user-select: none
-}
-
-@media screen and (max-width: 768px) {
-    .recent-post-info-top-tips {
-        display: none
-    }
 }
 
 #recent-posts > .recent-post-item > .recent-post-info .sticky-warp {
@@ -8881,7 +8876,7 @@ li {
     }
 
     #recent-posts .recent-post-item .recent-post-info .article-title {
-        font-size: 19px;
+        font-size: 18px;
     }
 }
 
@@ -9848,8 +9843,8 @@ span.recent-post-top-text {
 }
 
 .article-meta__tags {
-    margin-right: 4px;
-    padding: 0 0.2rem 0 0;
+    padding: 0.2rem;
+    border-radius: 8px;
 }
 
 /* 多分类兼容性调整 */
@@ -9870,7 +9865,7 @@ span.recent-post-top-text {
 
 @media screen and (max-width: 768px) {
     #recent-posts .recent-post-item .recent-post-info {
-        height: 7rem;
+        height: 150px;
     }
 }
 
@@ -9904,10 +9899,9 @@ span.recent-post-top-text {
 
 /* 首页文章标签样式 */
 #recent-posts > .recent-post-item > .recent-post-info > .article-meta-wrap a:hover {
-    background-color: var(--wjx-none);
+    background-color: var(--wjx-main-op-light);
     color: var(--wjx-lighttext);
     cursor: pointer;
-    border-radius: 4px;
 }
 
 /* 首页顶部banner区域 */
