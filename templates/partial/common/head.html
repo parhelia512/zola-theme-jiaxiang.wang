@@ -13,7 +13,10 @@
 
 <link rel="manifest" href="/manifest.json">
 
-<link rel="shortcut icon" href="{% if config.extra.site.favicon %}{{ config.extra.site.favicon | safe}}{% else %}/img/logo.jpg{% endif %}"/>
+<link rel="icon" type="image/x-icon" href="{{ config.extra.site.logo }}">
+<link rel="apple-touch-icon" href="{{ config.extra.site.logo }}">
+<link rel="bookmark" href="{{ config.extra.site.logo }}">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="{{ config.extra.site.logo }}">
 
 <script src="/libs/jquery/jquery-3.7.1.min.js"></script>
 <script src='/libs/pjax/pjax.min.js'></script>
