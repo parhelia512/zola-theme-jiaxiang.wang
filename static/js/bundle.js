@@ -623,6 +623,18 @@ var jqLoadAndRun = () => {
     }
 }
 
+window.trackExternalLink = () => {
+    if(!GLOBAL_CONFIG.umamiTrackExternalLink)
+        return
+    const name = 'outbound-link-click';
+    document.querySelectorAll('a').forEach(a => {
+      if (a.host !== window.location.host && !a.getAttribute('data-umami-event')) {
+        a.setAttribute('data-umami-event', name);
+        a.setAttribute('data-umami-event-url', a.href);
+      }
+    });
+};
+
 // 按需加载 js 或 css 文件，全部完成后调用 success 回调函数。 files: [{ path: '/js/file1.js', type: 'js' }, { path: '/css/file2.css', type: 'css' }]
 window.loadFiles = function (files, success) {
     let loadedCount = 0;
@@ -970,6 +982,8 @@ if (typeof isTagsRandomColor !== "undefined" && isTagsRandomColor) {
 
 //页脚友链
 GLOBAL_CONFIG.isFriendLinksInFooter && wjx.addFriendLinksInFooter()
+
+window.trackExternalLink()
 
 //音乐页面切换歌曲调用
 if (GLOBAL_CONFIG.isMusic) {
