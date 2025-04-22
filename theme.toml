@@ -63,6 +63,9 @@ remote_url = "https:/stat-api-ur"
 id = "74859602-4481-4cb3-bad0-4e1fd9d23d24"
 # js 地址
 js = "/path/to/script.js"
+# 追踪外部连接
+track_external_link = true
+
 
 [extra.lib]
 katex = true

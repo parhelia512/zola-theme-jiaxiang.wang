@@ -59,6 +59,7 @@ async function loadFriendLinks() {
         tagsGroupWrapper.innerHTML = tagsGroupHtml;
         const friendGroups = document.getElementById('friend-groups');
         friendGroups.innerHTML = friendGroupHtml;
+        window.trackExternalLink()
     } catch (error) {
         console.error('Error loading friend links:', error);
     }
