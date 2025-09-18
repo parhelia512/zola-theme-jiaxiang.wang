@@ -72,6 +72,9 @@
   - [x] Categories/Tags
   - [x] Access Popularity (based on Twikoo)
   - [x] Related Articles
+- [x] Collection / Knowledge Base
+  - [x] Multiple Collections
+  - [x] Folder Style Navigation
 - [x] Compliance
   - [x] ICP Filing (China)
   - [x] Public Security Filing (China)
