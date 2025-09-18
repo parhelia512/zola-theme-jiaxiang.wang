@@ -62,28 +62,29 @@
             </div>
         </div>
         
-        {% if config.extra.layout.card.polish_effect %}
-            <style>
-                #recent-posts > .recent-post-item:not(a)::before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 200%;
-                    background: linear-gradient(to right, transparent, white, transparent);
-                    transform: translateX(-200%);
-                    transition: transform 0.5s linear;
-                    z-index: 1;
-                }
-                
-                #recent-posts > .recent-post-item:not(a):hover::before {
-                    transform: translateX(100%) skewX(-60deg);
-                }
-            </style>
-        {% endif %}
+
     </div>
 {% endfor %}
 
+{% if config.extra.layout.card.polish_effect %}
+    <style>
+        #recent-posts > .recent-post-item:not(a)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, white, transparent);
+            transform: translateX(-200%);
+            transition: transform 0.5s linear;
+            z-index: 1;
+        }
+        
+        #recent-posts > .recent-post-item:not(a):hover::before {
+            transform: translateX(100%) skewX(-60deg);
+        }
+    </style>
+{% endif %}
 <!-- 分页 -->
 {{ macro_page::pagination(path='', section_target=section, is_index=true, _param='') }}
