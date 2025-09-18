@@ -99,6 +99,7 @@
             </div>
         {% endif %}
     </div>
+    {% if post.taxonomies %}
     <div class="post-tools-right">
         <div class="tag_share">
             <div class="post-meta__tag-list">
@@ -112,5 +113,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
     <link rel="stylesheet" href="{{ macro::get_production_path(path="/css/post-copyright-one.css") }}">
 {% endif %}
