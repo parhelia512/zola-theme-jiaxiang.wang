@@ -470,6 +470,14 @@ taxonomyWidget = [
     { widget = "tags" },
 ]
 
+# 合集页面小部件
+collectionWidget = [
+    { widget = "toc" },
+    { widget = "wechat" },
+    { widget = "comments" },
+    { widget = "recent-posts" }
+]
+
 # 个人卡片
 [extra.sidebar.profile]
 # 样式 default one
