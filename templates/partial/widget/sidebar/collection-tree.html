@@ -1,0 +1,21 @@
+{% import "macro/collection.html" as macro_collection %}
+
+{% set doc = page | default(value=section) %}
+<div class="sticky_layout">
+<div class="card-widget wjx-right-widget card-collection-tree" id="card-collection-tree" >
+    <div class="card-content">
+        <a href="{{ doc.permalink }}">
+            <div class="item-headline">
+                <i class="icon-book-open"></i>
+                <span>{{collection_title | default(value="导航")}}</span>
+            </div>
+        </a>
+        <div class="collection-tree">
+            {% if collection %}
+                {# 递归渲染合集的文件夹结构 #}
+                {{ macro_collection::render_collection_tree(section=collection, current_page=doc) }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>

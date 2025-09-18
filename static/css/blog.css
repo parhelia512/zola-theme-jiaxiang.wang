@@ -18731,3 +18731,128 @@ div#equipment {
         order: 2;
     }
 }
+
+/* 合集系列页面 */
+.collection-breadcrumb {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+.collection-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+}
+.collection-breadcrumb a:hover {
+    text-decoration: underline;
+}
+.collection-breadcrumb .separator {
+    margin: 0 0.5rem;
+    opacity: 0.6;
+}
+.tree-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.tree-toggle.active {
+    transform: rotate(180deg);
+}
+/* 侧边导航样式 */
+.card-collection-tree {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--card-box-shadow);
+    margin-bottom: 20px;
+}
+.card-collection-tree .item-headline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+.card-collection-tree .item-headline i {
+    color: var(--wjx-theme);
+}
+.collection-tree {
+    max-height: 600px;
+    overflow-y: auto;
+}
+.collection-tree .nav-tree {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.collection-tree .tree-item {
+    margin: 0;
+}
+.collection-tree .tree-folder-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.collection-tree .tree-folder-header.expanded {
+    color: var(--wjx-theme);
+}
+.collection-tree .tree-folder-header:hover {
+    color: var(--wjx-theme);
+}
+.collection-tree .tree-folder-header .tree-icon {
+    transition: transform 0.2s ease;
+    color: var(--text-color-3);
+}
+.collection-tree .tree-folder-header .tree-icon.expanded {
+    transform: rotate(90deg);
+}
+.collection-tree .tree-folder-content {
+    margin-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.collection-tree .tree-folder-content.expanded {
+    max-height: 1000px;
+}
+.collection-tree .tree-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+.collection-tree .tree-link:hover {
+    color: var(--wjx-theme);
+}
+.collection-tree .nav-page.current .tree-link {
+    color: var(--wjx-theme-op-deep);
+}
+.collection-tree .tree-icon {
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+}
+.collection-tree .nav-title {
+    flex: 1;
+    font-size: 14px;
+}
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .collection-tree {
+        max-height: 400px;
+    }
+}
+.separator {
+    margin: 0 0.5rem;
+}

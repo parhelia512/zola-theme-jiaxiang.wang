@@ -1,0 +1,191 @@
+{% import "_macros.html" as macro %}
+{% import "macro/template.html" as macro_template %}
+{% import "macro/pagination.html" as macro_page %}
+{% import "macro/collection.html" as macro_collection %}
+
+{% extends "page/base.html" %}
+
+{% block head %}
+    {{ macro::head_meta(title = page.title, _permalink = page.permalink, cover = macro::post_cover(post=page), excerpt = page.description | default(value= page.title ~ " | " ~ config.description), type = 'article') }}
+    <script id="ld-json" type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Article",
+          "headline": "{{ page.title }}",
+          "author": {
+            "@type": "Person",
+            "name": "{{ config.author }}",
+            "url": "/about"
+          },
+          "image": "{{ macro::thumbnail_s(url=macro::post_cover(post=page)) | trim | safe }}",
+          "datePublished": "{{ page.date | date(format="%+", timezone="Asia/Shanghai") }}",
+          {% if page.updated %}
+          "dateModified": "{{ page.updated | date(format="%+", timezone="Asia/Shanghai") }}",
+          {% endif %}
+          "description": "{{ page.description | default(value=page.title) }}"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% set data = load_data(path="data.toml") %}
+    {% set post = page %}
+    {% set collection = get_section(path=page.ancestors[2]) %}
+
+    
+    <!-- 获取当前页面所属的合集信息 -->
+    {% set page_components = page.components %}
+    {% if page_components | length >= 2 %}
+        {% set collection_name = page_components[1] %}
+        {% set collection = get_section(path="collections/" ~ collection_name ~ "/_index.md") %}
+        {% set collection_title = collection.title | default(value=collection_name) %}
+    {% else %}
+        {% set collection_name = "未知合集" %}
+        {% set collection_title = "未知合集" %}
+    {% endif %}
+    
+    <header class="not-top-img" id="page-header">
+        {{ macro::nav(title = config.title) }}
+    </header>
+
+    <main class="layout right-aside" id="content-inner">
+        <div id="post" style="order: 0;">
+            
+                <!-- 面包屑导航 -->
+                <div class="collection-breadcrumb">
+                    <a href="/collections/">合集</a>
+                    {# 去掉首页的路径开始渲染 #}
+                    {% for ancestor_path in page.ancestors | slice(start=1)%}
+                        {% set ancestor_section = get_section(path=ancestor_path) %}
+                        {% if ancestor_section %}
+                            <span class="separator">/</span>
+                            <a href="{{ ancestor_section.permalink }}">{{ ancestor_section.title | default(value=ancestor_path | split(pat="/") | last) }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <h1 class="post-title" id="post-title">{{ post.title }}</h1>
+
+                <div class="post-meta">
+                    <span class="post-meta-date">
+                        <span class="post-meta-date">
+                            <i class="icon-calendar-days post-meta-icon"></i>
+                            <time datetime="{{ page.date | date(format='%Y-%m-%d') }}"
+                                  title="{{ page.date | date(format='%Y-%m-%d %H:%M:%S') }}">
+                                {{ page.date | date(format='%Y/%m/%d') }}
+                            </time>
+                        </span>
+                        <span class="post-meta-date">
+                            <i class="icon-pencil post-meta-icon" title="最后更新时间"></i>
+                            <time datetime="{{ post.updated | default(value=post.date) | date(format='%Y-%m-%d') }}"
+                                  title="{{ post.updated | default(value=post.date) | date(format='%Y-%m-%d %H:%M:%S') }}">
+                                {{ post.updated | default(value=post.date) | date(format='%Y/%m/%d') }}
+                            </time>
+                        </span>
+                        {% set wordCount = page.word_count %}
+                        <i class="icon-file-word post-meta-icon" title="字数"></i>
+                        <span class="word-count">{{ wordCount }}</span>
+                        <span class="post-meta-separator"></span>
+                        <i class="icon-clock post-meta-icon" title="阅读耗时"></i>
+                        <span>{{ macro::get_reading_time(minutes=page.reading_time) }}min</span>
+                        <a class="post-meta-pv" data-flag-title="热度" title="热度">
+                            <i class="icon-fire post-meta-icon"></i>
+                            {# 使用自定义的访问量或者twikoo的访问量 #}
+                            {% if page.visit %}
+                                <span id="visit">{{ page.visit }}</span>
+                            {% else %}
+                                <span id="twikoo_visitors">
+                                    <i class="icon-spinner fa-spin"></i>
+                                </span>
+                            {% endif %}
+                        </a>
+                        {% if not post.extra.disable_comment and config.extra.comments.system == "twikoo" or config.extra.comments.system == "artalk" %}
+                            <a class="post-meta-commentcount" data-flag-title="评论数"
+                               title="评论数" href="#post-comment">
+                                <i class="icon-chat--fill post-meta-icon" style="font-size: 17px;"></i>
+                                {% if config.extra.comments.system == "twikoo" %}
+                                    <span id="twikoo-count">
+                                        <i class="icon-spinner fa-spin"></i>
+                                    </span>
+                                {% endif %}
+                                {% if config.extra.comments.system == "artalk" %}
+                                    <span id="ArtalkCount">
+                                        <i class="icon-spinner fa-spin"></i>
+                                    </span>
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </span>   
+                </div>
+            
+
+            <!-- 文章内容 -->
+            <div class="page-content" id="post">
+                <article class="post-content {% if config.extra.code.enable_line %}line-numbers{% endif %}" id="article-container">
+                    {{ page.content | safe }}
+                </article>
+                {% include "partial/post/copyright.html" %}
+                <hr>
+                {% include "partial/common/comment.html" %}
+            </div>
+        </div>
+
+        <div class="aside-content left-content" id="aside-content" style="order: -1;">
+            {% include "partial/widget/sidebar/collection-tree.html" %}
+        </div>
+
+        {{ macro::aside(widgets=config.extra.sidebar.widgets.collectionWidget) }}
+    </main>
+
+    {% include "partial/common/footer.html" %}
+
+    <style>
+        @media screen and (min-width: 1200px) {
+            .left-content {
+                padding-right: 15px !important;
+                padding-left: 0 !important;
+            }
+        }
+        @media screen and (min-width: 1300px) {
+            .left-content {
+                padding-right: 1rem !important;
+                padding-left: 0 !important;
+            }
+        }
+
+        .back-home-button-icon {
+            color: black !important;
+        }
+
+        .post .layout#content-inner {
+            background: var(--wjx-background);
+        }
+
+        @media screen and (max-width: 768px) {
+            .collection-breadcrumb {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleFolder(folder){
+            const icon = folder.querySelector('.tree-icon');
+            const content = folder.nextElementSibling
+            
+            if (content && content.classList.contains('tree-folder-content')) {
+                const isExpanded = content.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    content.classList.remove('expanded');
+                    icon.classList.remove('expanded');
+                    folder.classList.remove('expanded');
+                } else {
+                    content.classList.add('expanded');
+                    icon.classList.add('expanded');
+                    folder.classList.add('expanded');
+                }
+            }
+        }
+    </script>
+{% endblock %}

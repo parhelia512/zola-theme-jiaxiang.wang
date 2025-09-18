@@ -1,0 +1,272 @@
+{% import "_macros.html" as macro %}
+{% import "macro/template.html" as macro_template %}
+{% import "macro/pagination.html" as macro_page %}
+{% import "macro/collection.html" as macro_collection %}
+
+{% extends "page/base.html" %}
+
+{% block head %}
+    {% set doc = page | default(value=section) %}
+    {{ macro::head_meta(title = doc.title, _permalink = doc.permalink, cover = macro::post_cover(post=doc.extra.cover), excerpt = doc.description | default(value= doc.title ~ " | " ~ config.description), type = 'article') }}
+    <script id="ld-json" type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Article",
+          "headline": "{{ doc.title }}",
+          "author": {
+            "@type": "Person",
+            "name": "{{ config.author }}",
+            "url": "/about"
+          },
+          "image": "{{ macro::thumbnail_s(url=macro::post_cover(post=doc.extra.cover)) | trim | safe }}",
+          {% if doc.updated %}
+          "datePublished": "{{ doc.date | date(format="%+", timezone="Asia/Shanghai") }}",
+          {% endif %}
+          {% if doc.updated %}
+          "dateModified": "{{ doc.updated | date(format="%+", timezone="Asia/Shanghai") }}",
+          {% endif %}
+          "description": "{{ doc.description | default(value=doc.title) }}"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% set doc = page | default(value=section) %}
+
+    {% set data = load_data(path="data.toml") %}
+    {% set post = doc %}
+
+    {% set collection = doc %}
+    {% set collection_title = collection.title %}
+
+    
+    <header class="post-bg" id="page-header">
+        {{ macro::nav(title = config.title) }}
+        {% set img = macro::thumbnail_s(url=collection.extra.cover | default(value="/img/default-cover.webp")) %}
+        <div class="coverdiv loaded" id="coverdiv">
+            <img alt="cover" class="nolazyload" id="post-cover"
+                 src="{{ img | safe }}" loading="lazy" decoding="async">
+        </div>
+
+        <div id="post-info">
+            {# 面包屑导航 #}
+            <div class="collection-breadcrumb">
+                <a href="/collections/">合集</a>
+                {# 去掉首页的路径开始渲染 #}
+                {% for ancestor_path in doc.ancestors | slice(start=1)%}
+                    {% set ancestor_section = get_section(path=ancestor_path) %}
+                    {% if ancestor_section %}
+                        <span class="separator">/</span>
+                        <a href="{{ ancestor_section.permalink }}">{{ ancestor_section.title | default(value=ancestor_path | split(pat="/") | last) }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <h1 class="post-title">{{ doc.title }}</h1>
+            <div id="post-firstinfo">
+                <div class="meta-firstline">
+                    {% if config.extra.post.copyrights.enable %}
+                        {% if doc.extra.reprint_url %}
+                            {% set is_original = false %}
+                        {% else %}
+                            {% set is_original = true %}
+                        {% endif %}
+                        {% set copyrightUrl = doc.extra.copyright_url | default(value='/copyright') %}
+                        
+                        {% if is_original %}
+                            <a class="post-meta-original"
+                               title="该文章为原创文章，注意版权协议"
+                               href="{{ copyrightUrl | safe }}">原创</a>
+                        {% endif %}
+                        
+                        {% if not is_original %}
+                            <a class="post-meta-original"
+                               title="该文章为转载文章，版权归原作者所有"
+                               href="{{ copyrightUrl | safe }}">转载</a>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if doc.extra.tags %}
+                        <div class="tag_share">
+                            <div class="post-meta__tag-list">
+                                {% for tag in doc.extra.tags %}
+                                    <span class="tags-name tags-punctuation">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="post-meta">
+                <div class="meta-secondline">
+                    {% if is_original %}
+                    <span class="post-meta-author" data-flag-title="合集作者" title="合集作者">
+                        <i class="icon-zuozhe post-meta-icon"></i>{{ config.author }}
+                    </span>
+                    {% endif %}
+                    <span class="post-meta-wordcount">
+                        <i class="icon-book post-meta-icon" title="篇数"></i>
+                        <span class="post-meta-label">篇数:</span>
+                        <span class="word-count">{{ macro_collection::count_all_pages(section=collection) }} 篇</span>
+                        <span class="post-meta-separator"></span>
+                        <i class="icon-file-word post-meta-icon" title="字数"></i>
+                        <span class="post-meta-label">字数:</span>
+                        {% set total_words = 0 %}
+                        {% for page in collection.pages %}
+                            {% set_global total_words = total_words + page.word_count %}
+                        {% endfor %}
+                        <span class="word-count">{{ total_words }} 字</span>
+                        <span class="post-meta-separator"></span>
+                        <i class="icon-clock post-meta-icon" title="阅读耗时"></i>
+                        <span class="post-meta-label">阅读耗时:</span>
+                        {# <span>{{ wordCount / 400 | round + 1 }} 分钟</span> #}
+                        {% set total_reading_time = 0 %}
+                        {% for page in collection.pages %}
+                            {% set_global total_reading_time = total_reading_time + page.reading_time %}
+                        {% endfor %}
+                        <span>{{ macro::get_reading_time(minutes=total_reading_time) }} 分钟</span>
+                    </span>
+                    {% if doc.updated %}
+                    <span class="post-meta-date">
+                        <i class="icon-calendar-days post-meta-icon"></i>
+                        <time datetime="{{ doc.date | date(format='%Y-%m-%d') }}"
+                              title="{{ doc.date | date(format='%Y-%m-%d %H:%M:%S') }}">
+                            {{ doc.date | date(format='%Y/%m/%d') }}
+                        </time>
+                    </span>
+                    {% endif %}
+                    {% if config.extra.post.update_time and doc.updated %}
+                        <span class="post-meta-date">
+                            <i class="icon-pencil post-meta-icon" title="最后更新时间"></i>
+                            <time datetime="{{ doc.updated | date(format='%Y-%m-%d') }}"
+                                  title="{{ doc.updated | date(format='%Y-%m-%d %H:%M:%S') }}">
+                                {{ doc.updated | date(format='%Y/%m/%d') }}
+                            </time>
+                        </span>
+                    {% endif %}
+                    {% if doc.extra.wechat_url %}
+                    <a class="post-meta-pv" data-flag-title="打开公众号文章" title="打开公众号文章" target="_blank" href="{{ doc.extra.wechat_url }}">
+                        <i class="icon-weixin1 post-meta-icon"></i>公众号同步
+                    </a>
+                    {% else %}
+                    <span class="post-meta-wechat" title="{% if doc.extra.wechat_url %}该文章已在公众号中更新{% else %}该文章在博客首发{% endif %}">
+                        <i class="icon-rss post-meta-icon"></i>博客独享
+                    </span>
+                    {% endif %}
+                    <a class="post-meta-pv" data-flag-title="热度" title="热度">
+                        <i class="icon-fire post-meta-icon"></i>
+                        <span class="post-meta-label">热度:</span>
+                        {# 使用自定义的访问量或者twikoo的访问量 #}
+                        {% if doc.visit %}
+                            <span id="visit">{{ doc.visit }}</span>
+                        {% else %}
+                            <span id="twikoo_visitors">
+                                <i class="icon-spinner fa-spin"></i>
+                            </span>
+                        {% endif %}
+                    </a>
+                    {% if not doc.extra.disable_comment and config.extra.comments.system == "twikoo" or config.extra.comments.system == "artalk" %}
+                        <a class="post-meta-commentcount" data-flag-title="评论数"
+                           title="评论数" href="#post-comment">
+                            <i class="icon-chat--fill post-meta-icon" style="font-size: 17px;"></i>
+                            <span class="post-meta-label">评论:</span>
+                            {% if config.extra.comments.system == "twikoo" %}
+                                <span id="twikoo-count">
+                                    <i class="icon-spinner fa-spin"></i>
+                                </span>
+                            {% endif %}
+                            {% if config.extra.comments.system == "artalk" %}
+                                <span id="ArtalkCount">
+                                    <i class="icon-spinner fa-spin"></i>
+                                </span>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <section class="main-hero-waves-area waves-area">
+            <svg class="waves-svg" preserveAspectRatio="none" shape-rendering="auto" viewBox="0 24 150 28"
+                 xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <path d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"
+                          id="gentle-wave"></path>
+                </defs>
+                <g class="parallax">
+                    <use href="#gentle-wave" x="48" y="0"></use>
+                    <use href="#gentle-wave" x="48" y="3"></use>
+                    <use href="#gentle-wave" x="48" y="5"></use>
+                    <use href="#gentle-wave" x="48" y="7"></use>
+                </g>
+            </svg>
+        </section>
+    </header>
+
+    <main class="layout right-aside" id="content-inner">
+        <div id="post" style="order: 0;">
+            <!-- 文章内容 -->
+            <div class="page-content" id="post">
+                <article class="post-content {% if config.extra.code.enable_line %}line-numbers{% endif %}" id="article-container">
+                    {{ doc.content | default(value=doc.title) | safe }}
+                </article>
+
+                <hr style="display:block">
+
+                <div class="collection-tree">
+                    {% if collection %}
+                        {# 递归渲染合集的文件夹结构 #}
+                        {{ macro_collection::render_collection_tree(section=collection, current_page=doc) }}
+                    {% endif %}
+                </div>
+
+                {% include "partial/post/copyright.html" %}
+                <hr>
+                {% include "partial/common/comment.html" %}
+            </div>
+        </div>
+
+        <div class="aside-content left-content" id="aside-content" style="order: -1;">
+            {% include "partial/widget/sidebar/collection-tree.html" %}
+        </div>
+
+        {{ macro::aside(widgets=config.extra.sidebar.widgets.collectionWidget) }}
+    </main>
+
+    {% include "partial/common/footer.html" %}
+
+    <style>
+        @media screen and (min-width: 1200px) {
+            .left-content {
+                padding-right: 15px !important;
+                padding-left: 0 !important;
+            }
+        }
+        @media screen and (min-width: 1300px) {
+            .left-content {
+                padding-right: 1rem !important;
+                padding-left: 0 !important;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleFolder(folder){
+            const icon = folder.querySelector('.tree-icon');
+            const content = folder.nextElementSibling
+            
+            if (content && content.classList.contains('tree-folder-content')) {
+                const isExpanded = content.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    content.classList.remove('expanded');
+                    icon.classList.remove('expanded');
+                    folder.classList.remove('expanded');
+                } else {
+                    content.classList.add('expanded');
+                    icon.classList.add('expanded');
+                    folder.classList.add('expanded');
+                }
+            }
+        }
+    </script>
+{% endblock %}

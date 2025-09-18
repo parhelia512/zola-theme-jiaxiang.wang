@@ -1,0 +1,246 @@
+{% macro collection_list_header(title, description) %}
+<!-- collection list -->
+<div class="hello-about">
+    <div class="cursor" style="translate: none; rotate: none; scale: none; transform: translate(721px,180px);"></div>
+    <div class="shapes">
+        <div class="shape shape-1"
+             style="translate: none; rotate: none; scale: none; transform: translate(721px,180px);">
+        </div>
+        <div class="shape shape-2"
+             style="translate: none; rotate: none; scale: none; transform: translate(721px,180px);">
+        </div>
+        <div class="shape shape-3"
+             style="translate: none; rotate: none; scale: none; transform: translate(721px,180px);">
+        </div>
+    </div>
+    <div class="content">
+        <h1>{{title}}</h1>
+        <h2>{{description}}</h2>
+    </div>
+    <style>
+        .hello-about {
+            margin: 20px auto 0;
+            width: 100%;
+            border-radius: 24px;
+            background: var(--wjx-card-bg);
+            border: var(--style-border-always);
+            box-shadow: var(--wjx-shadow-border);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .shapes {
+            position: relative;
+            height: 215px;
+            width: 100%;
+            background: #2128bd;
+            overflow: hidden;
+        }
+
+        .shape {
+            will-change: transform;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .shape.shape-1 {
+            background: #005ffe;
+            width: 650px;
+            height: 650px;
+            margin: -325px 0 0 -325px;
+        }
+
+        .shape.shape-2 {
+            background: #ffe5e3;
+            width: 440px;
+            height: 440px;
+            margin: -220px 0 0 -220px;
+            display: none;
+        }
+
+        .shape.shape-3 {
+            background: #ffcc57;
+            width: 270px;
+            height: 270px;
+            margin: -135px 0 0 -135px;
+            display: none;
+        }
+
+        .hello-about .content {
+            top: 0;
+            left: 0;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 215px;
+            width: 100%;
+            background: #fff;
+            mix-blend-mode: screen;
+        }
+
+        [data-theme="dark"] .hello-about .content {
+            background: transparent;
+        }
+
+        [data-theme="dark"] .hello-about h1 {
+            color: var(--wjx-white);
+        }
+
+        [data-theme="dark"] .hello-about h2 {
+            color: var(--wjx-white);
+        }
+
+        .hello-about h1,
+        .hello-about h2 {
+            color: #000;
+            margin: 0;
+            text-align: center;
+            font: inherit;
+            vertical-align: baseline;
+            line-height: 1.5;
+            font-size: 2rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hello-about h2 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 419px) {
+            .hello-about h1 {
+                font-size: 4rem;
+            }
+
+            .hello-about h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hello-about {
+                margin:20px 0 auto
+            }
+        }
+
+        .cursor {
+            position: absolute;
+            background: #2128bd;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border-radius: 50%;
+            will-change: transform;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            display: none;
+        }
+
+        ::selection {
+            color: #fff;
+            background: #2128bd;
+        }
+    </style>
+    <script defer>
+        var isHideShape = true;
+        function initHelloAbout() {
+            const helloAboutEl = document.querySelector(".hello-about");
+            const cursorEl = document.querySelector(".cursor");
+            const shape2 = document.querySelector(".shape.shape-2");
+            const shape3 = document.querySelector(".shape.shape-3");
+
+            helloAboutEl.addEventListener("mousemove", evt => {
+                // 修复坐标计算出现偏差
+                const rect = helloAboutEl.getBoundingClientRect();
+                const mouseX = evt.clientX - rect.left;
+                const mouseY = evt.clientY - rect.top;
+                gsap.set(".cursor", {
+                    x: mouseX,
+                    y: mouseY,
+                });
+
+                gsap.to(".shape", {
+                    x: mouseX,
+                    y: mouseY,
+                    stagger: -0.1,
+                });
+
+                if (isHideShape) {
+                    shape2.style.display = "block";
+                    shape3.style.display = "block";
+                    cursorEl.style.display = "block";
+                    isHideShape = false;
+                }
+            });
+        }
+        if (typeof gsap === "object") {
+            initHelloAbout()
+        } else {
+            getScript("/libs/gsap/gsap.min.js").then(initHelloAbout);
+        }
+    </script>
+</div>
+{% endmacro %}
+
+
+<!-- 递归宏：渲染合集的文件夹结构 -->
+{% macro render_collection_tree(section, current_page) %}
+    <ul class="nav-tree">
+        <!-- 渲染子文件夹 -->
+        {% for subsection_path in section.subsections %}
+            {% set sub_section = get_section(path=subsection_path) %}
+            {% if sub_section %}
+                {% set_global should_expand = false %}
+                
+                <!-- 检查当前页面是否在这个子文件夹中 -->
+                {% if current_page %}
+                    <!-- 使用permalink来判断：如果当前页面的permalink以子文件夹的permalink开头，则展开 -->
+                    {% if current_page.permalink is starting_with(sub_section.permalink) %}
+                        {% set_global should_expand = true %}
+                    {% endif %}
+                {% endif %}
+                
+                <li class="tree-item tree-folder{% if should_expand %} expanded{% endif %}">
+                    <div class="tree-folder-header{% if should_expand %} expanded{% endif %}" onclick="toggleFolder(this)">
+                        <i class="tree-icon icon icon-folder-open{% if should_expand %} expanded{% endif %}"></i>
+                        <span class="nav-title">{{ sub_section.title | default(value=sub_section.path | split(pat="/") | last | replace(from="-", to=" ") | title) }}</span>
+                    </div>
+                    <div class="tree-folder-content{% if should_expand %} expanded{% endif %}">
+                        <!-- 递归渲染子文件夹 -->
+                        {{ macro_collection::render_collection_tree(section=sub_section, current_page=current_page) }}
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- 渲染当前文件夹的页面 -->
+        {% for section_page in section.pages | sort(attribute="date") %}
+            <li class="tree-item nav-page{% if current_page and current_page.permalink == section_page.permalink %} current{% endif %}">
+                <a href="{{ section_page.permalink }}" class="tree-link">
+                    <i class="tree-icon icon icon-book"></i>
+                    <span class="nav-title">{{ section_page.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro render_collection_tree %}
+
+{# 递归计算section及其所有子section的页面总数 #}
+{% macro count_all_pages(section) %}
+    {%- set_global total_pages = section.pages | length -%}
+    {%- for subsection_path in section.subsections -%}
+        {%- set subsection = get_section(path=subsection_path) -%}
+        {%- if subsection %}
+            {%- set subsection_count = macro_collection::count_all_pages(section=subsection) | int -%}
+            {%- set_global total_pages = total_pages + subsection_count -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {{- total_pages -}}
+{% endmacro count_all_pages %}
