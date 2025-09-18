@@ -10,7 +10,7 @@
                 <div class="author-info__top-group">
                     <div class="author-info__sayhi" id="author-info__sayhi" onclick="wjx.changeSayHelloText()">好久不见，你终于来了
                     </div>
-                    {{ macro::img_progressive_loading_single_size(src=config.extra.site.logo, class="avatar-img") }}
+                    {{ macro::img_progressive_loading_single_size(src=config.extra.site.author.avatar | default(value=config.extra.site.logo), class="avatar-img") }}
                 </div>
                 {% if config.author %}
                     <div class="author-info__name">{{ config.author }}</div>
