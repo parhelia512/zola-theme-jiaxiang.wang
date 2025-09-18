@@ -166,21 +166,7 @@
                 </div>
             </div>
         </div>
-        <section class="main-hero-waves-area waves-area">
-            <svg class="waves-svg" preserveAspectRatio="none" shape-rendering="auto" viewBox="0 24 150 28"
-                 xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <path d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"
-                          id="gentle-wave"></path>
-                </defs>
-                <g class="parallax">
-                    <use href="#gentle-wave" x="48" y="0"></use>
-                    <use href="#gentle-wave" x="48" y="3"></use>
-                    <use href="#gentle-wave" x="48" y="5"></use>
-                    <use href="#gentle-wave" x="48" y="7"></use>
-                </g>
-            </svg>
-        </section>
+        {% include "partial/widget/effect/wave.html" %}
     </header>
     <main class="layout {{ config.extra.sidebar.location }}" id="content-inner">
         <div id="post">

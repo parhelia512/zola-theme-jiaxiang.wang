@@ -28,21 +28,9 @@
 {% endblock %}
 
 {% block content %}
-    {% set data = load_data(path="data.toml") %}
     {% set post = page %}
-    {% set collection = get_section(path=page.ancestors[2]) %}
-
-    
-    <!-- 获取当前页面所属的合集信息 -->
-    {% set page_components = page.components %}
-    {% if page_components | length >= 2 %}
-        {% set collection_name = page_components[1] %}
-        {% set collection = get_section(path="collections/" ~ collection_name ~ "/_index.md") %}
-        {% set collection_title = collection.title | default(value=collection_name) %}
-    {% else %}
-        {% set collection_name = "未知合集" %}
-        {% set collection_title = "未知合集" %}
-    {% endif %}
+    {# 第三级路径是合集名称 #}
+    {% set collection = get_section(path=page.ancestors[3]) %}
     
     <header class="not-top-img" id="page-header">
         {{ macro::nav(title = config.title) }}
@@ -55,7 +43,7 @@
                 <div class="collection-breadcrumb">
                     <a href="/collections/">合集</a>
                     {# 去掉首页的路径开始渲染 #}
-                    {% for ancestor_path in page.ancestors | slice(start=1)%}
+                    {% for ancestor_path in page.ancestors | slice(start=2)%}
                         {% set ancestor_section = get_section(path=ancestor_path) %}
                         {% if ancestor_section %}
                             <span class="separator">/</span>
